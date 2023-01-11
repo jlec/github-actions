@@ -1,0 +1,31 @@
+{
+  "template": "git@github.com:jlec/cookiecutter-general.git",
+  "commit": "c70995ab88f8ffdc7d894b4b9ba32bc00f25f158",
+  "checkout": null,
+  "context": {
+    "cookiecutter": {
+      "email": "justin@jlec.de",
+      "full_name": "Justin Lecher",
+      "github_owner": "jlec",
+      "github_repo": "github-actions",
+      "project_name": "Github Actions",
+      "project_short_description": "Github Actions for reuse across repos",
+      "project_slug": "github_actions",
+      "project_support_ansible": false,
+      "project_support_ansible_collection": false,
+      "project_support_ansible_playbook": false,
+      "project_support_ansible_role": false,
+      "project_support_golang": false,
+      "project_support_nomad": false,
+      "project_support_packer": false,
+      "project_support_terraform": false,
+      "project_support_terraform_module": false,
+      "_go_app_name": "goer",
+      "_copy_without_render": [
+        ".github/workflows/cd.yml"
+      ],
+      "_template": "git@github.com:jlec/cookiecutter-general.git"
+    }
+  },
+  "directory": null
+}

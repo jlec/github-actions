@@ -1,0 +1,51 @@
+---
+name: CI - PR
+
+# yamllint disable-line rule:truthy
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions: read-all
+
+jobs:
+  pre-commit:
+    name: "Run Pre-commit against all files"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: ">=3.10"
+      - run: python -V
+      - uses: actions/setup-go@v3
+        with:
+          go-version: ">=1.19.0"
+      - run: go version
+      - run: sudo snap install shfmt
+      - run: sudo snap install task --classic
+      - run: "git config --global url.'https://jlec:${{ secrets.PAT_GITHUB_TOKEN }}@github.com/'.insteadOf git@github.com:"
+      # yamllint disable-line rule:line-length
+      - run: "git config --global url.'https://jlec:${{ secrets.PAT_GITHUB_TOKEN }}@github.com/'.insteadOf 'https://github.com/'"
+      - run: "git config --global url.'https://'.insteadOf git://"
+      - run: "git config --global user.name jlec"
+      - uses: pre-commit/action@v3.0.0
+        env:
+          # yamllint disable-line rule:line-length
+          SKIP: detect-aws-credentials,protect-first-parent,terraform_docs,terraform_providers_lock,terraform_tflint,terraform_tfsec,terraform_checkov,terrascan
+  automerge:
+    name: Merge PR
+    if: ${{ github.actor == 'dependabot[bot]' }}
+    needs: pre-commit
+    runs-on: ubuntu-latest
+
+    permissions:
+      pull-requests: write
+      contents: write
+
+    steps:
+      - uses: fastify/github-action-merge-dependabot@v3.5.3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          target: minor,patch

@@ -1,0 +1,25 @@
+---
+name: Continuous Integration
+
+# yamllint disable-line rule:truthy
+on:
+  # yamllint disable-line rule:empty-values
+  workflow_dispatch:
+
+  workflow_run:
+    workflows:
+      - CI - Pre-Commit
+    type:
+      - completed
+
+permissions: read-all
+
+jobs:
+  ci:
+    if: "${{ github.event.workflow_run.conclusion == 'success' }}"
+    runs-on: ubuntu-latest
+    name: Run CI
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
