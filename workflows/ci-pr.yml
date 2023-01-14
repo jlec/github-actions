@@ -1,0 +1,32 @@
+---
+name: CI - PR
+
+# yamllint disable-line rule:truthy
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions: read-all
+
+jobs:
+  gatekeeper:
+    name: gatekeeper
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dummy
+        run: echo "Run Pre-commit now"
+{% include ".github/workflows/templates/pre-commit.yml" %}
+  automerge:
+    name: Merge PR
+    if: {% raw %}${{ github.actor == 'dependabot[bot]' }}{% endraw %}
+    needs: pre-commit
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: write
+    steps:
+      - uses: fastify/github-action-merge-dependabot@v3.5.4
+        with:
+          github-token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
+          target: minor,patch
