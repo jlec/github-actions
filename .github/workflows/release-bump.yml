@@ -20,14 +20,14 @@ jobs:
       ANSIBLE_COLLECTIONS_PATH: /home/runner/.ansible/collections:/usr/share/ansible/collections
       ANSIBLE_ROLES_PATH: /home/runner/.ansible/roles:/usr/share/ansible/roles:/etc/ansible/roles
       PY_RUNNER: ""
-    uses: jlec/github-actions/workflows/pre-commit.yml
+    uses: jlec/github-actions/workflows/pre-commit.yml@main
   gitleaks:
     name: "Run GitLeaks"
     if: >-
       !startsWith(github.event.head_commit.message, 'bump:') &&
       !startsWith(github.event.head_commit.message, 'WIP')
     runs-on: ubuntu-latest
-    uses: jlec/github-actions/workflows/pre-commit.yml
+    uses: jlec/github-actions/workflows/pre-commit.yml@main
 
   license-year:
     name: "Fix license year"
