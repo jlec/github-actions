@@ -32,6 +32,9 @@ jobs:
       - pre-commit
       - gitleaks
     uses: jlec/github-actions/.github/workflows/reusable-license-year.yml@main
+    permissions:
+      contents: write
+      pull-requests: write
   commitizen-bump:
     name: "Bump version and create changelog with commitizen"
     needs: license-year
