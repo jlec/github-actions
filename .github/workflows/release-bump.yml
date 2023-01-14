@@ -10,19 +10,20 @@ on:
 permissions: read-all
 
 jobs:
-  # filter:
-  #   if: >-
-  #     !startsWith(github.event.head_commit.message, 'bump:') &&
-  #     !startsWith(github.event.head_commit.message, 'WIP')
-  # runs-on: ubuntu-latest
-  # steps:
-  #   - name: Release name
-  #     run: echo "${{ github.event.head_commit.message }}"
-  pre-commit:
-    name: "Run Pre-commit against all files"
+  filter:
     if: >-
       !startsWith(github.event.head_commit.message, 'bump:') &&
       !startsWith(github.event.head_commit.message, 'WIP')
+  runs-on: ubuntu-latest
+  steps:
+    - name: Release name
+      run: echo "${{ github.event.head_commit.message }}"
+  pre-commit:
+    name: "Run Pre-commit against all files"
+    # if: >-
+    #   !startsWith(github.event.head_commit.message, 'bump:') &&
+    #   !startsWith(github.event.head_commit.message, 'WIP')
+    needs: filter
     uses: jlec/github-actions/.github/workflows/reusable-pre-commit.yml@main
   gitleaks:
     name: "Run GitLeaks"
@@ -34,7 +35,7 @@ jobs:
   license-year:
     name: "Fix license year"
     needs:
-      # - gitleaks
+      - gitleaks
       - pre-commit
     runs-on: ubuntu-latest
     permissions:
