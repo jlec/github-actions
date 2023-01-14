@@ -6,8 +6,6 @@ on:
 # yamllint disable-line rule:empty
   workflow_call:
 
-permissions: read-all
-
 jobs:
   commitizen-bump:
     name: "Bump version and create changelog with commitizen"
