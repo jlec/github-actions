@@ -1,0 +1,38 @@
+---
+name: CI - GitLeaks
+
+# yamllint disable-line rule:truthy
+on:
+# yamllint disable-line rule:empty
+  workflow_call:
+
+permissions: read-all
+
+jobs:
+  commitizen-bump:
+    name: "Bump version and create changelog with commitizen"
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          token: "${{ secrets.PAT_GITHUB_TOKEN }}"
+      - name: Create bump and changelog
+        id: cz
+        uses: commitizen-tools/commitizen-action@0.16.0
+        with:
+          github_token: ${{ secrets.PAT_GITHUB_TOKEN }}
+          increment: PATCH
+          changelog_increment_filename: body.md
+      - name: Release on Github
+        uses: softprops/action-gh-release@v1
+        with:
+          body_path: "body.md"
+          tag_name: ${{ env.REVISION }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Print Version
+        run: echo "Bumped to version ${{ steps.cz.outputs.version }}"
