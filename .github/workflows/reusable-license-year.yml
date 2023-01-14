@@ -6,8 +6,6 @@ on:
 # yamllint disable-line rule:empty
   workflow_call:
 
-permissions: read-all
-
 jobs:
   license-year:
     name: "Fix license year"
