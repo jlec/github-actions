@@ -10,19 +10,26 @@ on:
 permissions: read-all
 
 jobs:
-  pre-commit:
-    # name: "Run Pre-commit against all files"
-    # if: >-
-    #   !startsWith(github.event.head_commit.message, 'bump:') &&
-    #   !startsWith(github.event.head_commit.message, 'WIP')
-    uses: jlec/github-actions/.github/workflows/reusable-pre-commit.yml@main
-  # gitleaks:
-  #   name: "Run GitLeaks"
+  # filter:
   #   if: >-
   #     !startsWith(github.event.head_commit.message, 'bump:') &&
   #     !startsWith(github.event.head_commit.message, 'WIP')
-  #   runs-on: ubuntu-latest
-  #   uses: jlec/github-actions/.github/workflows/reusable-gitleaks.yml@main
+  # runs-on: ubuntu-latest
+  # steps:
+  #   - name: Release name
+  #     run: echo "${{ github.event.head_commit.message }}"
+  pre-commit:
+    name: "Run Pre-commit against all files"
+    if: >-
+      !startsWith(github.event.head_commit.message, 'bump:') &&
+      !startsWith(github.event.head_commit.message, 'WIP')
+    uses: jlec/github-actions/.github/workflows/reusable-pre-commit.yml@main
+  gitleaks:
+    name: "Run GitLeaks"
+    if: >-
+      !startsWith(github.event.head_commit.message, 'bump:') &&
+      !startsWith(github.event.head_commit.message, 'WIP')
+    uses: jlec/github-actions/.github/workflows/reusable-gitleaks.yml@main
 
   license-year:
     name: "Fix license year"
