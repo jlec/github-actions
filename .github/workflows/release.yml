@@ -1,5 +1,5 @@
 ---
-name: Release
+name: Release Artefacts
 
 # yamllint disable-line rule:truthy
 on:
@@ -10,86 +10,6 @@ on:
 permissions: read-all
 
 jobs:
-  pre-commit:
-    name: "Run Pre-commit against all files"
-    if: >-
-      !startsWith(github.event.head_commit.message, 'bump:') &&
-      !startsWith(github.event.head_commit.message, 'WIP')
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
-        with:
-          python-version: ">=3.10"
-      - run: python -V
-      - uses: actions/setup-go@v3
-        with:
-          go-version: ">=1.19.0"
-      - run: go version
-      - run: sudo snap install shfmt
-      - run: sudo snap install task --classic
-      - run: "git config --global url.'https://jlec:${{ secrets.PAT_GITHUB_TOKEN }}@github.com/'.insteadOf git@github.com:"
-      # yamllint disable-line rule:line-length
-      - run: "git config --global url.'https://jlec:${{ secrets.PAT_GITHUB_TOKEN }}@github.com/'.insteadOf 'https://github.com/'"
-      - run: "git config --global url.'https://'.insteadOf git://"
-      - run: "git config --global user.name jlec"
-      - uses: pre-commit/action@v3.0.0
-        env:
-          # yamllint disable-line rule:line-length
-          SKIP: detect-aws-credentials,protect-first-parent,terraform_docs,terraform_providers_lock,terraform_tflint,terraform_tfsec,terraform_checkov,terrascan
-  license-year:
-    name: "Fix license year"
-    needs: pre-commit
-    runs-on: ubuntu-latest
-    permissions:
-      pull-requests: write
-      contents: write
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - name: Update License year
-        uses: FantasticFiasco/action-update-license-year@v2
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          assignees: jlec
-          labels: license,year
-      - name: Merge PR
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: >-
-          if [[ $(gh pr list --label license,year --json number -q .[].number | wc -l) -gt 0 ]]; then
-          gh pr merge --rebase --delete-branch;
-          fi
-  commitizen-bump:
-    name: "Bump version and create changelog with commitizen"
-    needs: license-year
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - name: Check out
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-          token: "${{ secrets.PAT_GITHUB_TOKEN }}"
-      - id: cz
-        name: Create bump and changelog
-        uses: commitizen-tools/commitizen-action@0.15.1
-        with:
-          github_token: ${{ secrets.PAT_GITHUB_TOKEN }}
-          increment: PATCH
-          changelog_increment_filename: body.md
-      - name: Release on Github
-        uses: softprops/action-gh-release@v1
-        with:
-          body_path: "body.md"
-          tag_name: ${{ env.REVISION }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Print Version
-        run: echo "Bumped to version ${{ steps.cz.outputs.version }}"
   release-and-clean:
     name: Release the code & clean up
     if: "startsWith(github.event.head_commit.message, 'bump:')"
@@ -100,7 +20,8 @@ jobs:
     env:
       GOPRIVATE: github.com/jlec-go
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
           ref: ${{ github.ref_name }}
