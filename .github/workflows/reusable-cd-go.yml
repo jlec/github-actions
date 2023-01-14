@@ -1,0 +1,47 @@
+---
+name: GO Releaser
+
+# yamllint disable-line rule:truthy
+on:
+  # yamllint disable-line rule:empty-values
+  workflow_call:
+    secrets:
+      pat:
+        required: true
+      token:
+        required: true
+
+jobs:
+  goreleaser:
+    name: goreleaser
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      statuses: write
+    env:
+      GOPRIVATE: github.com/jlec-go
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: ${{ github.ref_name }}
+
+      - name: Setup GO
+        uses: actions/setup-go@v3
+        with:
+          cache: true
+          go-version: '>=1.19.2'
+      - run: "git config --global url.'https://jlec:${{ secrets.pat }}@github.com/'.insteadOf git@github.com:"
+      # yamllint disable-line rule:line-length
+      - run: "git config --global url.'https://jlec:${{ secrets.pat }}@github.com/'.insteadOf 'https://github.com/'"
+      - run: "git config --global url.'https://'.insteadOf git://"
+      - run: "git config --global user.name jlec"
+      - name: Release GO code
+        uses: goreleaser/goreleaser-action@v4
+        with:
+          distribution: goreleaser
+          version: latest
+          args: release --rm-dist
+        env:
+          GITHUB_TOKEN: ${{ secrets.pat }}

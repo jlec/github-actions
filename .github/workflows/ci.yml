@@ -15,12 +15,34 @@ on:
 permissions: read-all
 
 jobs:
-  ci:
-    if: "${{ github.event.workflow_run.conclusion == 'success' }}"
+  trigger:
+    if: >-
+      ${{ github.ref_name == 'main' }} &&
+      ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
-    name: Run CI
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+      - name: Write Output
+        run: echo "### Triggering workflow! :rocket:" >> $GITHUB_STEP_SUMMARY
+  # go-build-test:
+  #   name: "GO Build & Test"
+  #   needs:
+  #     - trigger
+  #   uses: jlec/github-actions/.github/workflows/reusable-ci-go.yml@main
+  license-year:
+    name: "Fix license year"
+    needs:
+      # - go-build-test
+      - trigger
+    uses: jlec/github-actions/.github/workflows/reusable-license-year.yml@main
+    permissions:
+      contents: write
+      pull-requests: write
+  commitizen-bump:
+    name: "Bump version and create changelog with commitizen"
+    needs: license-year
+    uses: jlec/github-actions/.github/workflows/reusable-commitizen-bump.yml@main
+    permissions:
+      contents: write
+    secrets:
+      pat: ${{ secrets.PAT_GITHUB_TOKEN }}
+      token: ${{ secrets.GITHUB_TOKEN }}

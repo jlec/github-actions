@@ -1,0 +1,41 @@
+---
+name: Commitizen Bump
+
+# yamllint disable-line rule:truthy
+on:
+  # yamllint disable-line rule:empty-values
+  workflow_call:
+    secrets:
+      pat:
+        required: true
+      token:
+        required: true
+
+jobs:
+  commitizen-bump:
+    name: commitizen-bump
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          token: "${{ secrets.pat }}"
+      - name: Create bump and changelog
+        id: cz
+        uses: commitizen-tools/commitizen-action@0.16.0
+        with:
+          github_token: ${{ secrets.pat }}
+          increment: PATCH
+          changelog_increment_filename: body.md
+      - name: Release on Github
+        uses: softprops/action-gh-release@v1
+        with:
+          body_path: "body.md"
+          tag_name: ${{ env.REVISION }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.token }}
+      - name: Print Version
+        run: echo "Bumped to version ${{ steps.cz.outputs.version }}"

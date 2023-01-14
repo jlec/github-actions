@@ -15,14 +15,43 @@ on:
 permissions: read-all
 
 jobs:
-  cd:
-    name: Run CD
-    if: "${{ github.event.workflow_run.conclusion == 'success' }}"
+  trigger:
+    if: >-
+      startsWith(github.event.head_commit.message, 'bump:') &&
+      ${{ github.ref_name == 'main' }} &&
+      ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Write Output
+        run: echo "### Triggering workflow! :rocket:" >> $GITHUB_STEP_SUMMARY
+  # goreleaser:
+  #   name: "GO Releaser"
+  #   needs:
+  #     - trigger
+  #   uses: jlec/github-actions/.github/workflows/reusable-cd-go.yml@main
+  #   permissions:
+  #     contents: write
+  #     statuses: write
+  release-and-clean:
+    name: Release the code & clean up
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      statuses: write
+    needs:
+      # - goreleaser
+      - trigger
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+          ref: ${{ github.ref_name }}
+# FIXME: GO RELEASE
+      - name: Cleanup action status
+        uses: ouzi-dev/commit-status-updater@v2
+        with:
+          status: "success"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          name: "GithubActions - ${GITHUB_WORKFLOW}"
+          ignoreForks: true

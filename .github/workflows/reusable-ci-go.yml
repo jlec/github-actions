@@ -1,0 +1,27 @@
+---
+name: GO Build & test
+
+# yamllint disable-line rule:truthy
+on:
+  # yamllint disable-line rule:empty-values
+  workflow_call:
+
+
+jobs:
+  go-build-test:
+    name: go-build-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Set up Go
+        uses: actions/setup-go@v3
+        with:
+          cache: true
+          go-version: ">=1.19.2"
+      - name: GO Build
+        run: go build -v ./...
+      - name: GO Test
+        run: go test -v ./...
