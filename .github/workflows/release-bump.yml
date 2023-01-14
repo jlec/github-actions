@@ -39,3 +39,5 @@ jobs:
     name: "Bump version and create changelog with commitizen"
     needs: license-year
     uses: jlec/github-actions/.github/workflows/reusable-commitizen-bump.yml@main
+    permissions:
+      contents: write
