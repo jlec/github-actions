@@ -3,13 +3,13 @@ name: Linting
 
 # yamllint disable-line rule:truthy
 on:
-# yamllint disable-line rule:empty-values
+  # yamllint disable-line rule:empty-values
   workflow_call:
     inputs:
-      ansible:
-        default: false
+      ansible-deploy-key:
+        default: "null"
         required: false
-        type: boolean
+        type: string
 
 jobs:
   linting:
@@ -31,10 +31,11 @@ jobs:
           # cache:
           python-version: ">=3.10"
       - uses: webfactory/ssh-agent@v0.7.0
-        if: "${{ inputs.ansible == true }}"
+        if: >-
+          ${{ inputs.ansible-deploy-key != "null" }}
         with:
           ssh-private-key: >-
-            ${{ secrets.DEPLOY_KEY_ANSIBLE_COLLECTION_SYSTEM }}
+            ${{ inputs.ansible-deploy-key }}
       - name: Setup GIT user
         uses: fregante/setup-git-user@v1.1.0
       - name: Install GO
@@ -59,7 +60,7 @@ jobs:
           # yamllint disable-line rule:line-length
           SKIP: detect-aws-credentials,protect-first-parent,terraform_docs,terraform_providers_lock,terraform_tflint,terraform_tfsec,terraform_checkov,terrascan
 
-# RUN GITLEAKS
+      # RUN GITLEAKS
       - name: Run GitLeaks
         uses: gitleaks/gitleaks-action@v2
         env:
