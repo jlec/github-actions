@@ -6,11 +6,9 @@ on:
   # yamllint disable-line rule:empty-values
   workflow_dispatch:
 
-  workflow_run:
-    workflows:
-      - Finish CI
-    type:
-      - completed
+  push:
+    branches:
+      - main
 
 permissions: read-all
 
@@ -18,9 +16,7 @@ jobs:
   # goreleaser:
   #   name: "GO Releaser"
   #   if: >-
-  #     startsWith(github.event.head_commit.message, 'bump:') &&
-  #     ${{ github.ref_name == 'main' }} &&
-  #     ${{ github.event.workflow_run.conclusion == 'success' }}
+  #     startsWith(github.event.head_commit.message, 'bump:')
   #   needs:
   #     - trigger
   #   uses: jlec/github-actions/.github/workflows/reusable-cd-go.yml@main
@@ -30,9 +26,7 @@ jobs:
   release-and-clean:
     name: Release the code & clean up
     if: >-
-      startsWith(github.event.head_commit.message, 'bump:') &&
-      ${{ github.ref_name == 'main' }} &&
-      ${{ github.event.workflow_run.conclusion == 'success' }}
+      startsWith(github.event.head_commit.message, 'bump:')
     runs-on: ubuntu-latest
     permissions:
       contents: write

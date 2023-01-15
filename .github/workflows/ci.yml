@@ -43,7 +43,7 @@ jobs:
   #     - linting
   #   uses: jlec/github-actions/.github/workflows/reusable-ci-go.yml@main
   ci-generic:
-    name: "Fix license year"
+    name: "Run generic CI"
     if: >-
       ${{ github.ref_name == 'main' }} &&
       !startsWith(github.event.head_commit.message, 'bump:') &&
@@ -68,6 +68,7 @@ jobs:
     runs-on: ubuntu-latest
     needs:
       - ci-generic
+      # - go-build-test
     steps:
       - name: Write summary
         run: echo "#### Finished CI" >> $GITHUB_STEP_SUMMARY

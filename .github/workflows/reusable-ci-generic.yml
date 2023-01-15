@@ -12,8 +12,8 @@ on:
         required: true
 
 jobs:
-  license-year:
-    name: license-year
+  ci-generic:
+    name: ci-generic
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
