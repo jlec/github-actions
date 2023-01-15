@@ -1,5 +1,5 @@
 ---
-name: License Year
+name: CI Generic
 
 # yamllint disable-line rule:truthy
 on:
@@ -29,12 +29,14 @@ jobs:
           token: ${{ secrets.token }}
           assignees: jlec
           labels: license,year
-      - name: Merge PR
+      - name: Merge Year Bump PR
         env:
           GITHUB_TOKEN: ${{ secrets.token }}
-        run: >-
+        run: |-
           if [[ $(gh pr list --label license,year --json number -q .[].number | wc -l) -gt 0 ]]; then
-          gh pr merge --rebase --delete-branch;
+          gh pr merge --rebase --delete-branch
+          else
+          git checkout main
           fi
       - name: Create bump and changelog
         id: cz
