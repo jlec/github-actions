@@ -41,6 +41,9 @@ jobs:
     uses: jlec/github-actions/.github/workflows/reusable-gitleaks.yml@main
   summary-pre-commit:
     runs-on: ubuntu-latest
+    needs:
+      - pre-commit
+      - gitleaks
     steps:
       - name: Write summary
         run: echo "#### Finished Pre-commit" >> $GITHUB_STEP_SUMMARY
@@ -85,6 +88,8 @@ jobs:
       token: ${{ secrets.GITHUB_TOKEN }}
   summary-main:
     runs-on: ubuntu-latest
+    needs:
+      - commitizen-bump
     steps:
       - name: Write summary
         run: echo "#### Finished Main" >> $GITHUB_STEP_SUMMARY
@@ -117,6 +122,8 @@ jobs:
           target: minor,patch
   summary-pr:
     runs-on: ubuntu-latest
+    needs:
+      - automerge
     steps:
       - name: Write summary
         run: echo "#### Finished PR" >> $GITHUB_STEP_SUMMARY
@@ -129,6 +136,10 @@ jobs:
   finish-ci:
     name: Finish CI
     runs-on: ubuntu-latest
+    needs:
+      - summary-pre-commit
+      - summary-main
+      - summary-pr
     steps:
       - name: Write summary
         run: echo "#### Finished CI" >> $GITHUB_STEP_SUMMARY
