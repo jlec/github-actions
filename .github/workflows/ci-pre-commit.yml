@@ -20,8 +20,8 @@ jobs:
   pre-commit:
     name: "Run Pre-commit against all files"
     needs: trigger
-    uses: jlec/github-actions/.github/workflows/reusable/pre-commit.yml@main
+    uses: jlec/github-actions/.github/workflows/reusable-pre-commit.yml@main
   gitleaks:
     name: "Run GitLeaks"
     needs: trigger
-    uses: jlec/github-actions/.github/workflows/reusable/gitleaks.yml@main
+    uses: jlec/github-actions/.github/workflows/reusable-gitleaks.yml@main
