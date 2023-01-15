@@ -36,3 +36,6 @@ jobs:
     uses: jlec/github-actions/.github/workflows/reusable-commitizen-bump.yml@main
     permissions:
       contents: write
+    secrets:
+      pat: ${{ secrets.PAT_GITHUB_TOKEN }}
+      token: ${{ secrets.GITHUB_TOKEN }}
