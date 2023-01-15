@@ -1,0 +1,27 @@
+---
+name: CI - Pre-Commit
+
+# yamllint disable-line rule:truthy
+on:
+  # yamllint disable-line rule:empty-values
+  push:
+
+permissions: read-all
+
+jobs:
+  trigger:
+    if: >-
+      !startsWith(github.event.head_commit.message, 'bump:') &&
+      !startsWith(github.event.head_commit.message, 'WIP')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Release name
+        run: echo "${{ github.event.head_commit.message }}"
+  pre-commit:
+    name: "Run Pre-commit against all files"
+    needs: trigger
+    uses: jlec/github-actions/.github/workflows/reusable/pre-commit.yml@main
+  gitleaks:
+    name: "Run GitLeaks"
+    needs: trigger
+    uses: jlec/github-actions/.github/workflows/reusable/gitleaks.yml@main

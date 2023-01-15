@@ -3,7 +3,7 @@ name: CI - GitLeaks
 
 # yamllint disable-line rule:truthy
 on:
-# yamllint disable-line rule:empty
+# yamllint disable-line rule:empty-values
   workflow_call:
 
 jobs:

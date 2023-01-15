@@ -5,7 +5,7 @@ name: Release Artefacts
 on:
   push:
     branches:
-      - main
+      - maino
 
 permissions: read-all
 

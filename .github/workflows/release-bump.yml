@@ -5,7 +5,7 @@ name: Release Bump
 on:
   push:
     branches:
-      - main
+      - maino
 
 permissions: read-all
 

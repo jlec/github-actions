@@ -3,24 +3,13 @@ name: CI - Pre-Commit
 
 # yamllint disable-line rule:truthy
 on:
-  push:
-    branches-ignore:
-      - main
-
-permissions: read-all
+# yamllint disable-line rule:empty-values
+  workflow_call:
 
 jobs:
-  gatekeeper:
-    name: gatekeeper
-    runs-on: ubuntu-latest
-    steps:
-      - name: Dummy
-        run: echo "Run Pre-commit now"
   pre-commit:
-    name: "Run Pre-commit against all files"
+    name: pre-commit
     runs-on: ubuntu-latest
-    needs:
-      - gatekeeper
     env:
       ANSIBLE_COLLECTIONS_PATH: /home/runner/.ansible/collections:/usr/share/ansible/collections
       ANSIBLE_ROLES_PATH: /home/runner/.ansible/roles:/usr/share/ansible/roles:/etc/ansible/roles
@@ -57,15 +46,3 @@ jobs:
         env:
           # yamllint disable-line rule:line-length
           SKIP: detect-aws-credentials,protect-first-parent,terraform_docs,terraform_providers_lock,terraform_tflint,terraform_tfsec,terraform_checkov,terrascan
-  gitleaks:
-    name: gitleaks
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - name: Run GitLeaks
-        uses: gitleaks/gitleaks-action@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
