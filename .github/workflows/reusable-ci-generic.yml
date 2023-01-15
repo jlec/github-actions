@@ -26,11 +26,15 @@ jobs:
           token: ${{ secrets.pat }}
       - name: Update License year
         uses: FantasticFiasco/action-update-license-year@v2
+        if: >-
+          ${{ github.ref_name == 'main' }}
         with:
           token: ${{ secrets.token }}
           assignees: jlec
           labels: license,year
       - name: Merge Year Bump PR
+        if: >-
+          ${{ github.ref_name == 'main' }}
         env:
           GITHUB_TOKEN: ${{ secrets.pat }}
         run: |-
@@ -50,16 +54,22 @@ jobs:
       - name: Create bump and changelog
         id: cz
         uses: commitizen-tools/commitizen-action@0.16.0
+        if: >-
+          ${{ github.ref_name == 'main' }}
         with:
           github_token: ${{ secrets.pat }}
           increment: PATCH
           changelog_increment_filename: body.md
       - name: Release on Github
         uses: softprops/action-gh-release@v1
+        if: >-
+          ${{ github.ref_name == 'main' }}
         with:
           body_path: "body.md"
           tag_name: ${{ env.REVISION }}
         env:
           GITHUB_TOKEN: ${{ secrets.token }}
       - name: Print Version
+        if: >-
+          ${{ github.ref_name == 'main' }}
         run: echo "Bumped to version ${{ steps.cz.outputs.version }}"
