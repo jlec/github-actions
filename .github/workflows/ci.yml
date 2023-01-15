@@ -33,15 +33,6 @@ jobs:
   # Run on "main" branch pushes
   #
   ##############################################################################
-  # go-build-test:
-  #   name: "GO Build & Test"
-  #   if: >-
-  #     ${{ github.ref_name == 'main' }} &&
-  #     !startsWith(github.event.head_commit.message, 'bump:') &&
-  #     !startsWith(github.event.head_commit.message, 'WIP')
-  #   needs:
-  #     - linting
-  #   uses: jlec/github-actions/.github/workflows/reusable-ci-go.yml@main
   ci-generic:
     name: "Run generic CI"
     if: >-

@@ -1,11 +1,8 @@
 {
   "checkout": null,
-  "commit": "2c13fe37252cae947616346d2144ac2e0dbe3016",
+  "commit": "2371e36bb7cae20fecd576fcb3d5794d17c38ae5",
   "context": {
     "cookiecutter": {
-      "_copy_without_render": [
-        ".github/workflows/cd.yml"
-      ],
       "_go_app_name": "goer",
       "_template": "git@github.com:jlec/cookiecutter-general.git",
       "email": "justin@jlec.de",

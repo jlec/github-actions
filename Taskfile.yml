@@ -80,8 +80,8 @@ tasks:
       - $PY_RUNNER cruft update --allow-untracked-files --skip-apply-ask
       - if test -d control; then pushd control >/dev/null && task init && popd; fi
       - if test -d deployment; then pushd deployment >/dev/null && task init && popd; fi
-      - git add --update; $PY_RUNNER pre-commit run -a pretty-format-json
-      - git add --update; $PY_RUNNER pre-commit run -a terraform_docs
+      - $PY_RUNNER pre-commit run -a pretty-format-json
+      - $PY_RUNNER pre-commit run -a terraform_docs
       - git stash list | grep -q cruft-update && git stash pop >/dev/null || true
 
   cruft-push:
