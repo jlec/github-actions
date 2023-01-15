@@ -1,28 +1,36 @@
 ---
-name: Commitizen Bump
+name: License Year
 
 # yamllint disable-line rule:truthy
 on:
-  # yamllint disable-line rule:empty-values
+# yamllint disable-line rule:empty-values
   workflow_call:
-    secrets:
-      pat:
-        required: true
-      token:
-        required: true
 
 jobs:
-  commitizen-bump:
-    name: commitizen-bump
+  license-year:
+    name: license-year
     runs-on: ubuntu-latest
     permissions:
+      pull-requests: write
       contents: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          token: "${{ secrets.pat }}"
+      - name: Update License year
+        uses: FantasticFiasco/action-update-license-year@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          assignees: jlec
+          labels: license,year
+      - name: Merge PR
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: >-
+          if [[ $(gh pr list --label license,year --json number -q .[].number | wc -l) -gt 0 ]]; then
+          gh pr merge --rebase --delete-branch;
+          fi
       - name: Create bump and changelog
         id: cz
         uses: commitizen-tools/commitizen-action@0.16.0

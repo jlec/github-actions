@@ -15,17 +15,12 @@ on:
 permissions: read-all
 
 jobs:
-  trigger:
-    if: >-
-      startsWith(github.event.head_commit.message, 'bump:') &&
-      ${{ github.ref_name == 'main' }} &&
-      ${{ github.event.workflow_run.conclusion == 'success' }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Write Output
-        run: echo "### Triggering workflow! :rocket:" >> $GITHUB_STEP_SUMMARY
   # goreleaser:
   #   name: "GO Releaser"
+  #   if: >-
+  #     startsWith(github.event.head_commit.message, 'bump:') &&
+  #     ${{ github.ref_name == 'main' }} &&
+  #     ${{ github.event.workflow_run.conclusion == 'success' }}
   #   needs:
   #     - trigger
   #   uses: jlec/github-actions/.github/workflows/reusable-cd-go.yml@main
@@ -34,13 +29,16 @@ jobs:
   #     statuses: write
   release-and-clean:
     name: Release the code & clean up
+    if: >-
+      startsWith(github.event.head_commit.message, 'bump:') &&
+      ${{ github.ref_name == 'main' }} &&
+      ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     permissions:
       contents: write
       statuses: write
-    needs:
-      # - goreleaser
-      - trigger
+    # needs:
+    #   - goreleaser
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
