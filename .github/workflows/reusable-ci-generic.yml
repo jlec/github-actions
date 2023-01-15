@@ -5,6 +5,11 @@ name: License Year
 on:
 # yamllint disable-line rule:empty-values
   workflow_call:
+    secrets:
+      pat:
+        required: true
+      token:
+        required: true
 
 jobs:
   license-year:
@@ -21,12 +26,12 @@ jobs:
       - name: Update License year
         uses: FantasticFiasco/action-update-license-year@v2
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.token }}
           assignees: jlec
           labels: license,year
       - name: Merge PR
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.token }}
         run: >-
           if [[ $(gh pr list --label license,year --json number -q .[].number | wc -l) -gt 0 ]]; then
           gh pr merge --rebase --delete-branch;
