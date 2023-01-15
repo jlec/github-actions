@@ -26,15 +26,11 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-
           ref: ${{ github.ref_name }}
-
       - name: Cleanup action status
         uses: ouzi-dev/commit-status-updater@v2
         with:
           status: "success"
-
           token: ${{ secrets.GITHUB_TOKEN }}
-
           name: "GithubActions - ${GITHUB_WORKFLOW}"
           ignoreForks: true

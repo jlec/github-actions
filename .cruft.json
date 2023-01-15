@@ -1,6 +1,6 @@
 {
   "checkout": null,
-  "commit": "2371e36bb7cae20fecd576fcb3d5794d17c38ae5",
+  "commit": "bca0206b74ba6d25b7a2907ebb3ae12fb65659fe",
   "context": {
     "cookiecutter": {
       "_go_app_name": "goer",
