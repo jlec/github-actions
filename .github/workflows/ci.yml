@@ -59,6 +59,8 @@ jobs:
       !startsWith(github.event.head_commit.message, 'bump:') &&
       !startsWith(github.event.head_commit.message, 'WIP')
     runs-on: ubuntu-latest
+    needs:
+      - summary-pre-commit
     steps:
       - name: Write Output
         run: echo "### Triggering workflow! :rocket:" >> $GITHUB_STEP_SUMMARY
@@ -106,6 +108,8 @@ jobs:
     steps:
       - name: Write Output
         run: echo "### Triggering workflow! :rocket:" >> $GITHUB_STEP_SUMMARY
+    needs:
+      - summary-pre-commit
   automerge:
     name: Merge PR
     if: ${{ github.actor == 'dependabot[bot]' }}
@@ -139,7 +143,7 @@ jobs:
     needs:
       - summary-pre-commit
       - summary-main
-      - summary-pr
+      # - summary-pr
     steps:
       - name: Write summary
         run: echo "#### Finished CI" >> $GITHUB_STEP_SUMMARY
