@@ -15,12 +15,24 @@ on:
 permissions: read-all
 
 jobs:
-  ci:
-    if: "${{ github.event.workflow_run.conclusion == 'success' }}"
+  trigger:
+    if: >-
+      ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
-    name: Run CI
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+      - name: Write Output
+        run: echo "### Triggering workflow! :rocket:" >> $GITHUB_STEP_SUMMARY
+  license-year:
+    name: "Fix license year"
+    needs:
+      - trigger
+    uses: jlec/github-actions/.github/workflows/reusable-license-year.yml@main
+    permissions:
+      contents: write
+      pull-requests: write
+  commitizen-bump:
+    name: "Bump version and create changelog with commitizen"
+    needs: license-year
+    uses: jlec/github-actions/.github/workflows/reusable-commitizen-bump.yml@main
+    permissions:
+      contents: write

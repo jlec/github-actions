@@ -15,8 +15,8 @@ jobs:
       !startsWith(github.event.head_commit.message, 'WIP')
     runs-on: ubuntu-latest
     steps:
-      - name: Release name
-        run: echo "${{ github.event.head_commit.message }}"
+      - name: Write Output
+        run: echo "### Triggering workflow! :rocket:" >> $GITHUB_STEP_SUMMARY
   pre-commit:
     name: "Run Pre-commit against all files"
     needs: trigger
