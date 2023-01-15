@@ -83,6 +83,11 @@ jobs:
     secrets:
       pat: ${{ secrets.PAT_GITHUB_TOKEN }}
       token: ${{ secrets.GITHUB_TOKEN }}
+  summary-main:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Write summary
+        run: echo "#### Finished Main" >> $GITHUB_STEP_SUMMARY
 
   ###############################################################################
   #
@@ -110,3 +115,20 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           target: minor,patch
+  summary-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Write summary
+        run: echo "#### Finished PR" >> $GITHUB_STEP_SUMMARY
+
+  ###############################################################################
+  #
+  # Finish CI
+  #
+  ###############################################################################
+  finish-ci:
+    name: Finish CI
+    runs-on: ubuntu-latest
+    steps:
+      - name: Write summary
+        run: echo "#### Finished CI" >> $GITHUB_STEP_SUMMARY
