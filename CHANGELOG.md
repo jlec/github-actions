@@ -1,3 +1,10 @@
+## v0.0.4 (2023-01-15)
+
+### Fix
+
+- Ignore actions
+- Merge actions
+
 ## v0.0.3 (2023-01-15)
 
 ### Fix
