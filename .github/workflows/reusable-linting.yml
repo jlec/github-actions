@@ -5,11 +5,9 @@ name: Linting
 on:
   # yamllint disable-line rule:empty-values
   workflow_call:
-    inputs:
+    secrets:
       ansible-deploy-keys:
-        default: "null"
         required: false
-        type: string
 
 jobs:
   linting:
@@ -32,7 +30,7 @@ jobs:
           python-version: ">=3.10"
       - uses: webfactory/ssh-agent@v0.7.0
         if: >-
-          ${{ inputs.ansible-deploy-keys != 'null' }}
+          ${{ inputs.ansible-deploy-keys != '' }}
         with:
           ssh-private-key: >-
             ${{ inputs.ansible-deploy-key }}
