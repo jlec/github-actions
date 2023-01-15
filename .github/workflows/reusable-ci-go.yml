@@ -6,7 +6,6 @@ on:
   # yamllint disable-line rule:empty-values
   workflow_call:
 
-
 jobs:
   go-build-test:
     name: go-build-test
