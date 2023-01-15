@@ -9,7 +9,7 @@ line-length = 128
 name = "cz_conventional_commits"
 tag_format = "v$version"
 update_changelog_on_bump = true
-version = "0.0.9"
+version = "0.0.10"
 version_files = [
   "VERSION",
   "pyproject.toml:version"
@@ -20,7 +20,7 @@ authors = ["Justin Lecher <justin@jlec.de>"]
 description = "Github Actions for reuse across repos"
 license = "Apache-2.0"
 name = "github_actions"
-version = "0.0.9"
+version = "0.0.10"
 
 [tool.poetry.dependencies]
 ansible = "^7.1.0"
