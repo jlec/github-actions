@@ -47,7 +47,6 @@ jobs:
         with:
           fetch-depth: 0
           ref: ${{ github.ref_name }}
-# FIXME: GO RELEASE
       - name: Cleanup action status
         uses: ouzi-dev/commit-status-updater@v2
         with:

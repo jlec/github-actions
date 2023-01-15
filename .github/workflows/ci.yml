@@ -6,19 +6,53 @@ on:
   # yamllint disable-line rule:empty-values
   workflow_dispatch:
 
-  workflow_run:
-    workflows:
-      - CI - Pre-Commit
-    type:
-      - completed
+  # yamllint disable-line rule:empty-values
+  push:
+    tags:
+      - "!*"
 
 permissions: read-all
 
 jobs:
-  trigger:
+###############################################################################
+#
+# Run on everything but Releases and WIP
+#
+###############################################################################
+  trigger-pre-commit:
+    if: >-
+      !startsWith(github.event.head_commit.message, 'bump:') &&
+      !startsWith(github.event.head_commit.message, 'WIP')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Write Output
+        run: echo "### Triggering workflow! :rocket:" >> $GITHUB_STEP_SUMMARY
+  pre-commit:
+    name: "Run Pre-commit against all files"
+    needs:
+      - trigger-pre-commit
+    uses: jlec/github-actions/.github/workflows/reusable-pre-commit.yml@main
+  gitleaks:
+    name: "Run GitLeaks"
+    needs:
+      - trigger-pre-commit
+    uses: jlec/github-actions/.github/workflows/reusable-gitleaks.yml@main
+  summary-pre-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Write summary
+        run: echo "#### Finished Pre-commit" >> $GITHUB_STEP_SUMMARY
+
+###############################################################################
+#
+# Run on "main" branch pushes
+#
+###############################################################################
+  trigger-main:
     if: >-
       ${{ github.ref_name == 'main' }} &&
-      ${{ github.event.workflow_run.conclusion == 'success' }}
+      !startsWith(github.event.head_commit.message, 'bump:') &&
+      !startsWith(github.event.head_commit.message, 'WIP')
     runs-on: ubuntu-latest
     steps:
       - name: Write Output
@@ -26,23 +60,51 @@ jobs:
   # go-build-test:
   #   name: "GO Build & Test"
   #   needs:
-  #     - trigger
+  #     - trigger-main
   #   uses: jlec/github-actions/.github/workflows/reusable-ci-go.yml@main
   license-year:
     name: "Fix license year"
     needs:
       # - go-build-test
-      - trigger
+      - trigger-main
     uses: jlec/github-actions/.github/workflows/reusable-license-year.yml@main
     permissions:
       contents: write
       pull-requests: write
   commitizen-bump:
     name: "Bump version and create changelog with commitizen"
-    needs: license-year
+    needs:
+      - license-year
     uses: jlec/github-actions/.github/workflows/reusable-commitizen-bump.yml@main
     permissions:
       contents: write
     secrets:
       pat: ${{ secrets.PAT_GITHUB_TOKEN }}
       token: ${{ secrets.GITHUB_TOKEN }}
+
+###############################################################################
+#
+# Run on pull requests
+#
+###############################################################################
+  trigger-pr:
+    if: >-
+      ${{ github.event_name == 'pull_request' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Write Output
+        run: echo "### Triggering workflow! :rocket:" >> $GITHUB_STEP_SUMMARY
+  automerge:
+    name: Merge PR
+    if: ${{ github.actor == 'dependabot[bot]' }}
+    needs:
+      - trigger-pr
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: write
+    steps:
+      - uses: fastify/github-action-merge-dependabot@v3.5.4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          target: minor,patch
