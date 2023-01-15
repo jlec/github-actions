@@ -54,3 +54,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.token }}
       - name: Print Version
         run: echo "Bumped to version ${{ steps.cz.outputs.version }}"
+      - name: Merge Dependabot PR
+        uses: fastify/github-action-merge-dependabot@v3.5.4
+        if: >-
+          ${{ github.actor == 'dependabot[bot]' }} &&
+          ${{ github.event_name == 'pull_request' }}
+        with:
+          github-token: ${{ secrets.token }}
+          target: minor,patch
