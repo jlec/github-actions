@@ -30,7 +30,6 @@ jobs:
           # cache:
           python-version: ">=3.10"
       - uses: webfactory/ssh-agent@v0.7.0
-        if: ${{ secrets.ansible-deploy-keys != '' }}
         with:
           ssh-private-key: >-
             ${{ secrets.ansible-deploy-keys }}
