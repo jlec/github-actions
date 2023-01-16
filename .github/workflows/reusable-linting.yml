@@ -17,6 +17,7 @@ jobs:
       ANSIBLE_COLLECTIONS_PATH: /home/runner/.ansible/collections:/usr/share/ansible/collections
       ANSIBLE_ROLES_PATH: /home/runner/.ansible/roles:/usr/share/ansible/roles:/etc/ansible/roles
       PY_RUNNER: ""
+      # DEPLOY_KEY: ${{ secrets.ansible-deploy-keys }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -29,11 +30,10 @@ jobs:
           # cache:
           python-version: ">=3.10"
       - uses: webfactory/ssh-agent@v0.7.0
-        if: >-
-          ${{ secrets.ansible-deploy-keys != '' }}
+        if: ${{ secrets.ansible-deploy-keys != '' }}
         with:
           ssh-private-key: >-
-            ${{ secrets.ansible-deploy-key }}
+            ${{ secrets.ansible-deploy-keys }}
       - name: Setup GIT user
         uses: fregante/setup-git-user@v1.1.0
       - name: Install GO
