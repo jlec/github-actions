@@ -26,22 +26,38 @@ jobs:
         with:
           fetch-depth: 0
           ref: ${{ github.ref_name }}
-
       - name: Setup GO
         uses: actions/setup-go@v3
         with:
           cache: true
-          go-version: '>=1.19.2'
+          go-version-file: "go.mod"
       - run: "git config --global url.'https://jlec:${{ secrets.pat }}@github.com/'.insteadOf git@github.com:"
       # yamllint disable-line rule:line-length
       - run: "git config --global url.'https://jlec:${{ secrets.pat }}@github.com/'.insteadOf 'https://github.com/'"
       - run: "git config --global url.'https://'.insteadOf git://"
       - run: "git config --global user.name jlec"
+      - name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@v5
+        id: import_gpg
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
       - name: Release GO code
         uses: goreleaser/goreleaser-action@v4
         with:
-          distribution: goreleaser
           version: latest
           args: release --rm-dist
         env:
           GITHUB_TOKEN: ${{ secrets.pat }}
+          GPG_FINGERPRINT: ${{ steps.import_gpg.outputs.fingerprint }}
+      - name: Release on TFC
+        run: if [[ -e tools/release.py ]]; then cd tools && ./release.py; fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.pat }}
+          TFE_TOKEN: ${{ secrets.tfe_token }}
+      - name: Cleanup action status
+        uses: ouzi-dev/commit-status-updater@v2
+        with:
+          status: "success"
+          token: ${{ secrets.token }}
+          name: "GithubActions - ${GITHUB_WORKFLOW}"
+          ignoreForks: true
