@@ -65,6 +65,6 @@ jobs:
       # RUN GITLEAKS
       - name: Run GitLeaks
         uses: gitleaks/gitleaks-action@v2
-        if: github.repository_owner == "jlec"
+        if: ${{ github.repository_owner == 'jlec' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
