@@ -6,7 +6,11 @@ on:
   # yamllint disable-line rule:empty-values
   workflow_call:
     secrets:
+      gpg_release_key:
+        required: true
       pat:
+        required: true
+      tfe_release_token:
         required: true
       token:
         required: true
@@ -40,7 +44,7 @@ jobs:
         uses: crazy-max/ghaction-import-gpg@v5
         id: import_gpg
         with:
-          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          gpg_private_key: ${{ secrets.gpg_release_key }}
       - name: Release GO code
         uses: goreleaser/goreleaser-action@v4
         with:
@@ -53,7 +57,7 @@ jobs:
         run: if [[ -e tools/release.py ]]; then cd tools && ./release.py; fi
         env:
           GITHUB_TOKEN: ${{ secrets.pat }}
-          TFE_TOKEN: ${{ secrets.tfe_token }}
+          TFE_TOKEN: ${{ secrets.tfe_release_token }}
       - name: Cleanup action status
         uses: ouzi-dev/commit-status-updater@v2
         with:
