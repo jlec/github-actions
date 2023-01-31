@@ -37,7 +37,7 @@ jobs:
       !startsWith(github.event.head_commit.message, 'WIP')
     needs:
       - linting
-    uses: jlec/github-actions/.github/workflows/reusable-ci-dependabot.yml@main
+    uses: jlec/github-actions/.github/workflows/reusable-pr-dependabot.yml@main
     permissions:
       contents: write
       pull-requests: write
@@ -47,7 +47,7 @@ jobs:
   ci-generic:
     name: "Run generic CI"
     if: >-
-      !${{ github.actor == 'dependabot[bot]' }} &&
+      ${{ github.actor != 'dependabot[bot]' }} &&
       !startsWith(github.event.head_commit.message, 'bump:') &&
       !startsWith(github.event.head_commit.message, 'WIP')
     needs:
