@@ -7,8 +7,6 @@ on:
     secrets:
       pat:
         required: true
-      token:
-        required: true
 
 jobs:
   go-build-test:
