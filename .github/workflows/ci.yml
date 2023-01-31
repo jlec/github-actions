@@ -36,7 +36,6 @@ jobs:
       !startsWith(github.event.head_commit.message, 'bump:') &&
       !startsWith(github.event.head_commit.message, 'WIP')
     needs:
-      - go-build-test
       - linting
     uses: jlec/github-actions/.github/workflows/reusable-ci-dependabot.yml@main
     permissions:
