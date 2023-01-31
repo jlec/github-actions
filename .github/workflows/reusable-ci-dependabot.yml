@@ -1,0 +1,32 @@
+---
+name: CI Generic
+
+# yamllint disable-line rule:truthy
+on:
+# yamllint disable-line rule:empty-values
+  workflow_call:
+    secrets:
+      token:
+        required: true
+
+jobs:
+  ci-generic:
+    name: ci-generic
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: write
+    if: >-
+      ${{ github.actor == 'dependabot[bot]' }} &&
+      ${{ github.event_name == 'pull_request' }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.token }}
+      - name: Merge Dependabot PR
+        uses: fastify/github-action-merge-dependabot@v3.5.4
+        with:
+          github-token: ${{ secrets.token }}
+          target: minor,patch

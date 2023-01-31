@@ -43,14 +43,6 @@ jobs:
           else
           git checkout main
           fi
-      - name: Merge Dependabot PR
-        uses: fastify/github-action-merge-dependabot@v3.5.4
-        if: >-
-          ${{ github.actor == 'dependabot[bot]' }} &&
-          ${{ github.event_name == 'pull_request' }}
-        with:
-          github-token: ${{ secrets.token }}
-          target: minor,patch
       - name: Create bump and changelog
         id: cz
         uses: commitizen-tools/commitizen-action@0.16.0
