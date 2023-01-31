@@ -50,6 +50,8 @@ jobs:
         run: go install mvdan.cc/sh/v3/cmd/shfmt@latest
       - name: Install Task
         uses: arduino/setup-task@v1
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Install ansible deps in deployment
         run: "if [[ -d deployment ]]; then cd deployment && task ansible-init; fi"
       - name: Install ansible deps in packer
