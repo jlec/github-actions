@@ -39,7 +39,7 @@ jobs:
           ssh-private-key: >-
             ${{ secrets.ansible-deploy-keys }}
       - name: Setup GIT user
-        uses: fregante/setup-git-user@v1.1.0
+        uses: fregante/setup-git-user@v2.0.1
       - name: Install GO
         uses: actions/setup-go@v3
         with:
