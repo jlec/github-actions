@@ -28,7 +28,7 @@ jobs:
       !startsWith(github.event.head_commit.message, 'bump:') &&
       !startsWith(github.event.head_commit.message, 'WIP')
     name: "Run Linting against all files"
-    uses: ./reusable-linting.yml@main
+    uses: .github/workflow/reusable-linting.yml@main
 
   dependabot:
     name: "Handle dependabot PR"
@@ -38,7 +38,7 @@ jobs:
       !startsWith(github.event.head_commit.message, 'WIP')
     needs:
       - linting
-    uses: ./reusable-pr-dependabot.yml
+    uses: .github/workflow/reusable-pr-dependabot.yml
     permissions:
       contents: write
       pull-requests: write
@@ -54,7 +54,7 @@ jobs:
     needs:
       - dependabot
       - linting
-    uses: ./reusable-ci-generic.yml
+    uses: .github/workflow/reusable-ci-generic.yml
     permissions:
       contents: write
       pull-requests: write
