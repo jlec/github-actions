@@ -1,3 +1,15 @@
+## v0.0.27 (2023-03-07)
+
+### Fix
+
+- revert workflow location
+- workflows
+- workflow location
+
+### Refactor
+
+- use local workflow
+
 ## v0.0.26 (2023-02-19)
 
 ## v0.0.25 (2023-01-31)
