@@ -23,7 +23,7 @@ jobs:
       - run: "git config --global url.'https://'.insteadOf git://"
       - run: "git config --global user.name jlec"
       - name: Set up Go
-        uses: actions/setup-go@v3
+        uses: actions/setup-go@v4
         with:
           cache: true
           go-version: ">=1.19.2"
