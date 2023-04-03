@@ -26,7 +26,7 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.pat }}
       - name: Update License year
-        uses: FantasticFiasco/action-update-license-year@v2
+        uses: FantasticFiasco/action-update-license-year@v3
         if: >-
           ${{ github.ref_name == 'main' }}
         with:
