@@ -1,8 +1,11 @@
 {
   "checkout": null,
-  "commit": "012bd4f95dce7aaf8200383040a2ca90ba4fbd0d",
+  "commit": "ca060892abd205d0ef1a496bbd41af071c0d2105",
   "context": {
     "cookiecutter": {
+      "_copy_without_render": [
+        "charts/README.md.gotmpl"
+      ],
       "_go_app_name": "goer",
       "_template": "git@github.com:jlec/cookiecutter-general.git",
       "email": "justin@jlec.de",
@@ -17,6 +20,7 @@
       "project_support_ansible_playbook": false,
       "project_support_ansible_role": false,
       "project_support_golang": false,
+      "project_support_kubernetes": false,
       "project_support_nomad": false,
       "project_support_packer": false,
       "project_support_terraform": false,
