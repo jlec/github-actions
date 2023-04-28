@@ -7,7 +7,7 @@
         "charts/README.md.gotmpl"
       ],
       "_go_app_name": "goer",
-      "_template": "git@github.com:jlec/cookiecutter-general.git",
+      "_template": "https://github.com/jlec/cookiecutter-general.git",
       "email": "justin@jlec.de",
       "full_name": "Justin Lecher",
       "github_owner": "jlec",
@@ -28,5 +28,5 @@
     }
   },
   "directory": null,
-  "template": "git@github.com:jlec/cookiecutter-general.git"
+  "template": "https://github.com/jlec/cookiecutter-general.git"
 }
