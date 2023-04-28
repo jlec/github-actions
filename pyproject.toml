@@ -23,7 +23,7 @@ name = "github_actions"
 version = "0.0.30"
 
 [tool.poetry.dependencies]
-ansible = "^7.4.0"
+ansible = "^7.5.0"
 molecule = "^5.0.0"
 netaddr = "^0"
 pytest-testinfra = "^7.0.0"
@@ -36,7 +36,7 @@ pytest-testinfra = ["ansible", "docker", "local"]
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.3.0"
-commitizen = "^3.0.1"
+commitizen = "^3.1.1"
 cruft = "^2.14.0"
 poetry = "^1.4.2"
 pre-commit = "^3.2.2"
@@ -46,7 +46,7 @@ pytest-cookies = "^0"
 pytest-parallel = "^0"
 pytest-xdist = "^3.2.1"
 pyyaml = "^6.0"
-yamllint = "^1.30.0"
+yamllint = "^1.31.0"
 
 [tool.ruff]
 exclude = [
