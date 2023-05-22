@@ -120,15 +120,6 @@ repos:
     hooks:
       - id: ggshield
         stages: ["push"]
-  - repo: https://github.com/golangci/golangci-lint
-    rev: v1.52.2
-    hooks:
-      - id: golangci-lint
-  - repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
-    rev: v2.9.0
-    hooks:
-      - id: pretty-format-golang
-        args: [--autofix]
   - repo: https://github.com/pappasam/toml-sort
     rev: v0.23.1
     hooks:
