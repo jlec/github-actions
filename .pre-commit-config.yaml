@@ -111,12 +111,12 @@ repos:
         stages:
           - commit-msg
   - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: v0.0.267
+    rev: v0.0.269
     hooks:
       - id: ruff
         args: [--fix, --exit-non-zero-on-fix]
   - repo: https://github.com/gitguardian/ggshield
-    rev: v1.15.0
+    rev: v1.15.1
     hooks:
       - id: ggshield
         stages: ["push"]
