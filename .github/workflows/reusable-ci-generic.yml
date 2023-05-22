@@ -46,7 +46,7 @@ jobs:
           fi
       - name: Create bump and changelog
         id: cz
-        uses: commitizen-tools/commitizen-action@0.18.1
+        uses: commitizen-tools/commitizen-action@0.18.2
         if: >-
           ${{ github.ref_name == 'main' }}
         with:
