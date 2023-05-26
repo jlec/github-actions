@@ -9,6 +9,10 @@ on:
         required: true
       token:
         required: true
+    inputs:
+      artifacts:
+        type: string
+        required: false
 
 jobs:
   ci-generic:
@@ -53,10 +57,23 @@ jobs:
           github_token: ${{ secrets.pat }}
           increment: PATCH
           changelog_increment_filename: body.md
-      - name: Release on Github
+      - name: Release on Github w/ files
         uses: softprops/action-gh-release@v1
         if: >-
-          ${{ github.ref_name == 'main' }}
+          ${{ github.ref_name == 'main' }} &&
+          ${{ inputs.files == '' }}
+        with:
+          files: ${{ inputs.files }}
+          body_path: "body.md"
+          tag_name: ${{ env.REVISION }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.token }}
+
+      - name: Release on Github w/o files
+        uses: softprops/action-gh-release@v1
+        if: >-
+          ${{ github.ref_name == 'main' }} &&
+          ${{ inputs.files != '' }}
         with:
           body_path: "body.md"
           tag_name: ${{ env.REVISION }}
