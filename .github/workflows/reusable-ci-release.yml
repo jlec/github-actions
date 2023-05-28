@@ -1,0 +1,96 @@
+---
+name: CI Release
+
+# yamllint disable-line rule:truthy
+on:
+  workflow_call:
+    secrets:
+      pat:
+        required: true
+      token:
+        required: true
+    inputs:
+      artifacts:
+        type: string
+        required: false
+      galaxy:
+        type: boolean
+        required: false
+
+jobs:
+  ci-release:
+    name: ci-release
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: write
+    if: >-
+      ${{ github.actor != 'dependabot[bot]' }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.pat }}
+      - name: Update License year
+        uses: FantasticFiasco/action-update-license-year@v3
+        if: >-
+          ${{ github.ref_name == 'main' }}
+        with:
+          token: ${{ secrets.token }}
+          assignees: jlec
+          labels: license,year
+      - name: Merge Year Bump PR
+        if: >-
+          ${{ github.ref_name == 'main' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.pat }}
+        run: |-
+          if [[ $(gh pr list --label license,year --json number -q .[].number | wc -l) -gt 0 ]]; then
+          gh pr merge --rebase --delete-branch
+          else
+          git checkout main
+          fi
+      - name: Create bump and changelog
+        id: cz
+        uses: commitizen-tools/commitizen-action@0.18.2
+        if: >-
+          ${{ github.ref_name == 'main' }}
+        with:
+          github_token: ${{ secrets.pat }}
+          increment: PATCH
+          changelog_increment_filename: body.md
+
+      - name: Build Ansible Collection
+        uses: artis3n/ansible_galaxy_collection@v2
+        if: ${{ github.ref_name == 'main' }} && ${{ inputs.galaxy }}
+        with:
+          api_key: "FAKE_KEY"
+          publish: false
+
+      - name: Release on Github w/ files
+        uses: softprops/action-gh-release@v1
+        if: >-
+          ${{ github.ref_name == 'main' }} &&
+          ${{ inputs.files == '' }}
+        with:
+          files: ${{ inputs.files }}
+          body_path: "body.md"
+          tag_name: ${{ env.REVISION }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.token }}
+
+      - name: Release on Github w/o files
+        uses: softprops/action-gh-release@v1
+        if: >-
+          ${{ github.ref_name == 'main' }} &&
+          ${{ inputs.files != '' }}
+        with:
+          body_path: "body.md"
+          tag_name: ${{ env.REVISION }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.token }}
+      - name: Print Version
+        if: >-
+          ${{ github.ref_name == 'main' }}
+        run: echo "Bumped to version ${{ steps.cz.outputs.version }}"
