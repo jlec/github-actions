@@ -13,9 +13,6 @@ on:
       artifacts:
         type: string
         required: false
-      galaxy:
-        type: boolean
-        required: false
 
 jobs:
   ci-release:
@@ -61,9 +58,17 @@ jobs:
           increment: PATCH
           changelog_increment_filename: body.md
 
+      - name: "Check file existence"
+        id: check_files
+        uses: andstor/file-existence-action@v2
+        with:
+          files: "galaxy.yml, meta/runtime.yml"
+
       - name: Build Ansible Collection
         uses: artis3n/ansible_galaxy_collection@v2
-        if: ${{ github.ref_name == 'main' }} && ${{ inputs.galaxy }}
+        if: >-
+          ${{ github.ref_name == 'main' }} &&
+          steps.check_files.outputs.files_exists == 'true'
         with:
           api_key: "FAKE_KEY"
           publish: false
@@ -72,9 +77,9 @@ jobs:
         uses: softprops/action-gh-release@v1
         if: >-
           ${{ github.ref_name == 'main' }} &&
-          ${{ inputs.files == '' }}
+          ${{ inputs.artifacts != '' }}
         with:
-          files: ${{ inputs.files }}
+          files: ${{ inputs.artifacts }}
           body_path: "body.md"
           tag_name: ${{ env.REVISION }}
         env:
@@ -84,7 +89,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         if: >-
           ${{ github.ref_name == 'main' }} &&
-          ${{ inputs.files != '' }}
+          ${{ inputs.artifacts == '' }}
         with:
           body_path: "body.md"
           tag_name: ${{ env.REVISION }}
