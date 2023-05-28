@@ -66,13 +66,8 @@ jobs:
 
       - name: Print Version
         if: >-
-          ${{ github.ref_name == 'main' }} &&
-          steps.check_files.outputs.files_exists == 'true'
-        run: echo "Bumped to version ${{ steps.cz.outputs.version }}"
-
-      - name: Print Version
-        if: >-
-          steps.check_files.outputs.files_exists == 'true'
+          steps.check_files.outputs.files_exists == 'true' &&
+          ${{ github.ref_name == 'main' }}
         run: echo "Bumped to version ${{ steps.cz.outputs.version }}"
 
       - name: Build Ansible Collection
