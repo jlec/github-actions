@@ -64,6 +64,17 @@ jobs:
         with:
           files: "galaxy.yml, meta/runtime.yml"
 
+      - name: Print Version
+        if: >-
+          ${{ github.ref_name == 'main' }} &&
+          steps.check_files.outputs.files_exists == 'true'
+        run: echo "Bumped to version ${{ steps.cz.outputs.version }}"
+
+      - name: Print Version
+        if: >-
+          steps.check_files.outputs.files_exists == 'true'
+        run: echo "Bumped to version ${{ steps.cz.outputs.version }}"
+
       - name: Build Ansible Collection
         uses: artis3n/ansible_galaxy_collection@v2
         if: >-
