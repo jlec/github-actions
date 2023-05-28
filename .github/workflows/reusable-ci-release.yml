@@ -22,7 +22,8 @@ jobs:
       pull-requests: write
       contents: write
     if: >-
-      ${{ github.actor != 'dependabot[bot]' }}
+      ${{ github.actor != 'dependabot[bot]' }} &&
+      ${{ github.ref_name == 'main' }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -31,15 +32,11 @@ jobs:
           token: ${{ secrets.pat }}
       - name: Update License year
         uses: FantasticFiasco/action-update-license-year@v3
-        if: >-
-          ${{ github.ref_name == 'main' }}
         with:
           token: ${{ secrets.token }}
           assignees: jlec
           labels: license,year
       - name: Merge Year Bump PR
-        if: >-
-          ${{ github.ref_name == 'main' }}
         env:
           GITHUB_TOKEN: ${{ secrets.pat }}
         run: |-
@@ -51,8 +48,6 @@ jobs:
       - name: Create bump and changelog
         id: cz
         uses: commitizen-tools/commitizen-action@0.18.2
-        if: >-
-          ${{ github.ref_name == 'main' }}
         with:
           github_token: ${{ secrets.pat }}
           increment: PATCH
@@ -66,8 +61,7 @@ jobs:
 
       - name: Print Version
         if: >-
-          steps.check_files.outputs.files_exists == 'true' &&
-          ${{ github.ref_name == 'main' }}
+          steps.check_files.outputs.files_exists == 'true'
         run: echo "Bumped to version ${{ steps.cz.outputs.version }}"
 
       - name: Build Ansible Collection
@@ -82,7 +76,6 @@ jobs:
       - name: Release on Github w/ files
         uses: softprops/action-gh-release@v1
         if: >-
-          ${{ github.ref_name == 'main' }} &&
           ${{ inputs.artifacts != '' }}
         with:
           files: ${{ inputs.artifacts }}
@@ -94,7 +87,6 @@ jobs:
       - name: Release on Github w/o files
         uses: softprops/action-gh-release@v1
         if: >-
-          ${{ github.ref_name == 'main' }} &&
           ${{ inputs.artifacts == '' }}
         with:
           body_path: "body.md"
@@ -102,6 +94,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.token }}
       - name: Print Version
-        if: >-
-          ${{ github.ref_name == 'main' }}
         run: echo "Bumped to version ${{ steps.cz.outputs.version }}"
