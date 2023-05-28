@@ -59,24 +59,16 @@ jobs:
         with:
           files: "galaxy.yml, meta/runtime.yml"
 
-      - name: Print Version
-        if: >-
-          steps.check_files.outputs.files_exists == 'true'
-        run: echo "Bumped to version ${{ steps.cz.outputs.version }}"
-
       - name: Build Ansible Collection
         uses: artis3n/ansible_galaxy_collection@v2
-        if: >-
-          ${{ github.ref_name == 'main' }} &&
-          steps.check_files.outputs.files_exists == 'true'
+        if: steps.check_files.outputs.files_exists == 'true'
         with:
           api_key: "FAKE_KEY"
           publish: false
 
       - name: Release on Github w/ files
         uses: softprops/action-gh-release@v1
-        if: >-
-          ${{ inputs.artifacts != '' }}
+        if: ${{ inputs.artifacts != '' }}
         with:
           files: ${{ inputs.artifacts }}
           body_path: "body.md"
@@ -86,8 +78,7 @@ jobs:
 
       - name: Release on Github w/o files
         uses: softprops/action-gh-release@v1
-        if: >-
-          ${{ inputs.artifacts == '' }}
+        if: ${{ inputs.artifacts == '' }}
         with:
           body_path: "body.md"
           tag_name: ${{ env.REVISION }}
