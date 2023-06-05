@@ -51,6 +51,8 @@ jobs:
         run: go install mvdan.cc/sh/v3/cmd/shfmt@latest
       - name: Install staticcheck
         run: go install honnef.co/go/tools/cmd/staticcheck@latest
+      - name: Install terragrunt
+        run: go install github.com/gruntwork-io/terragrunt@latest
       - name: Install Task
         uses: arduino/setup-task@v1
         with:
@@ -65,7 +67,7 @@ jobs:
         uses: pre-commit/action@v3.0.0
         env:
           # yamllint disable-line rule:line-length
-          SKIP: detect-aws-credentials,protect-first-parent,terraform_docs,terraform_providers_lock,terraform_tflint,terraform_tfsec,terraform_checkov,terrascan,helm-docs-built,go-vet,go-unit-tests,go-static-check,tfupdate
+          SKIP: detect-aws-credentials,protect-first-parent,terraform_docs,terraform_providers_lock,terraform_tflint,terraform_tfsec,terraform_checkov,terrascan,helm-docs-built,go-vet,go-unit-tests,go-static-check,tfupdate,terragrunt_fmt
 
       # RUN GITLEAKS
       - name: Run GitLeaks
