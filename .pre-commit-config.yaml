@@ -44,8 +44,14 @@ repos:
       - id: requirements-txt-fixer
       - id: sort-simple-yaml
       - id: trailing-whitespace
+  - repo: https://github.com/commitizen-tools/commitizen
+    rev: 3.2.2
+    hooks:
+      - id: commitizen
+        stages:
+          - commit-msg
   - repo: https://github.com/adrienverge/yamllint
-    rev: v1.31.0
+    rev: v1.32.0
     hooks:
       - id: yamllint
   - repo: https://github.com/jumanjihouse/pre-commit-hooks
@@ -80,46 +86,6 @@ repos:
     rev: v2.12.1-beta
     hooks:
       - id: hadolint-docker
-  - repo: https://github.com/antonbabenko/pre-commit-terraform
-    rev: v1.79.1
-    hooks:
-      # - id: infracost_breakdown
-      - id: terraform_fmt
-      - id: terraform_docs
-        args:
-          - --hook-config=--add-to-existing-file=true
-      - id: terraform_providers_lock
-      - id: terraform_tflint
-      - id: terraform_tfsec
-        args:
-          - --args=--exclude-downloaded-modules
-        stages: ["push"]
-      - id: terraform_checkov
-        args:
-          - --args=--config-file=.checkov.yaml
-        stages: ["push"]
-      - id: terrascan
-        args:
-          - --args=--verbose
-          - --args=--non-recursive
-          - --args=--skip-rules="AC_AWS_0207"
-        stages: ["push"]
-  - repo: https://github.com/commitizen-tools/commitizen
-    rev: 3.2.2
-    hooks:
-      - id: commitizen
-        stages:
-          - commit-msg
-  - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: v0.0.269
-    hooks:
-      - id: ruff
-        args: [--fix, --exit-non-zero-on-fix]
-  - repo: https://github.com/gitguardian/ggshield
-    rev: v1.15.1
-    hooks:
-      - id: ggshield
-        stages: ["push"]
   - repo: https://github.com/pappasam/toml-sort
     rev: v0.23.1
     hooks:
@@ -132,6 +98,17 @@ repos:
     hooks:
       - id: gitleaks
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.23.0
+    rev: 0.23.1
     hooks:
       - id: check-github-workflows
+
+  - repo: https://github.com/charliermarsh/ruff-pre-commit
+    rev: v0.0.270
+    hooks:
+      - id: ruff
+        args: [--fix, --exit-non-zero-on-fix]
+  - repo: https://github.com/gitguardian/ggshield
+    rev: v1.16.0
+    hooks:
+      - id: ggshield
+        stages: ["push"]
