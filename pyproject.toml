@@ -23,7 +23,7 @@ name = "github_actions"
 version = "0.0.43"
 
 [tool.poetry.dependencies]
-ansible = "^7.5.0"
+ansible = "^8.0.0"
 molecule = "^5.0.1"
 netaddr = "^0"
 pytest-testinfra = "^8.1.0"
