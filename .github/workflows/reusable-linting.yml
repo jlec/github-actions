@@ -68,8 +68,9 @@ jobs:
       - name: Run pre-commit against all files
         uses: pre-commit/action@v3.0.0
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # yamllint disable-line rule:line-length
-          SKIP: detect-aws-credentials,protect-first-parent,terraform_docs,terraform_providers_lock,terraform_tflint,terraform_tfsec,terraform_checkov,terrascan,helm-docs-built,go-vet,go-unit-tests,go-static-check,tfupdate,terragrunt_fmt
+          SKIP: detect-aws-credentials,protect-first-parent,terraform_docs,terraform_providers_lock,terraform_tflint,terraform_tfsec,terraform_checkov,terrascan,helm-docs-built,go-vet,go-unit-tests,go-static-check,tfupdate
 
       # RUN GITLEAKS
       - name: Run GitLeaks
