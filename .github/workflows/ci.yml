@@ -29,8 +29,6 @@ jobs:
       !startsWith(github.event.head_commit.message, 'WIP')
     name: "Run Linting against all files"
     uses: jlec/github-actions/.github/workflows/reusable-linting.yml@main
-    secrets:
-      tfe_token: ${{ secrets.TFE_TOKEN }}
 
   dependabot:
     name: "Handle dependabot PR"
