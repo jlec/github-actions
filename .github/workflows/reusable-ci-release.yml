@@ -48,7 +48,7 @@ jobs:
           fi
       - name: Create bump and changelog
         id: cz
-        uses: commitizen-tools/commitizen-action@0.18.2
+        uses: commitizen-tools/commitizen-action@0.19.0
         with:
           github_token: ${{ secrets.pat }}
           increment: PATCH
