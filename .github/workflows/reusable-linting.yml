@@ -52,7 +52,7 @@ jobs:
         with:
           terragrunt_version: latest
       - name: Install shfmt
-        uses: mfinelli/setup-shfmt@v2
+        uses: mfinelli/setup-shfmt@v3
       - name: Install staticcheck
         run: go install honnef.co/go/tools/cmd/staticcheck@latest
       - name: Install Task
