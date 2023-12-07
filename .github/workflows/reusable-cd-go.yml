@@ -26,12 +26,12 @@ jobs:
       GOPRIVATE: github.com/jlec-go
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
           ref: ${{ github.ref_name }}
       - name: Setup GO
-        uses: actions/setup-go@v4
+        uses: actions/setup-go@v5
         with:
           cache: true
           go-version-file: "go.mod"

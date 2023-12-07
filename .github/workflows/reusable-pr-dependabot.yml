@@ -3,7 +3,7 @@ name: Dependabot PR
 
 # yamllint disable-line rule:truthy
 on:
-# yamllint disable-line rule:empty-values
+  # yamllint disable-line rule:empty-values
   workflow_call:
     secrets:
       token:

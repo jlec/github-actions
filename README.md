@@ -2,7 +2,6 @@
 
 Github Actions for reuse across repos
 
-
 ## License
 
 Apache-2.0

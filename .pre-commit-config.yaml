@@ -4,11 +4,19 @@
 default_stages: [commit]
 exclude: >
   (?x)^(
+  .pytest_cache|
+  .ruff_cache|
+  .terraform|
+  .trunk/actions|
+  .trunk/logs|
+  .trunk/notifications|
+  .trunk/out|
+  .trunk/plugins|
   .vscode/launch.json
   )
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.4.0
+    rev: v4.5.0
     hooks:
       - id: check-added-large-files
       - id: check-ast
@@ -18,8 +26,8 @@ repos:
       - id: check-executables-have-shebangs
       - id: check-json
       - id: check-shebang-scripts-are-executable
-      - id: pretty-format-json
-        args: ["--autofix"]
+      # - id: pretty-format-json
+      #   args: ["--autofix"]
       - id: check-merge-conflict
       - id: check-symlinks
       - id: check-toml
@@ -45,17 +53,19 @@ repos:
       - id: sort-simple-yaml
       - id: trailing-whitespace
   - repo: https://github.com/commitizen-tools/commitizen
-    rev: 3.2.2
+    rev: v3.13.0
     hooks:
       - id: commitizen
         stages:
           - commit-msg
   - repo: https://github.com/adrienverge/yamllint
-    rev: v1.32.0
+    rev: v1.33.0
     hooks:
       - id: yamllint
-  - repo: https://github.com/jumanjihouse/pre-commit-hooks
-    rev: 3.0.0
+  # - repo: https://github.com/jumanjihouse/pre-commit-hooks
+  #   rev: 3.0.0
+  - repo: https://github.com/jlec/pre-commit-hooks
+    rev: gh-111
     hooks:
       # - id: bundler-audit
       - id: check-mailmap
@@ -74,7 +84,7 @@ repos:
       # - id: script-must-not-have-extension
       - id: shfmt
   - repo: https://github.com/psf/black
-    rev: 23.3.0
+    rev: 23.11.0
     hooks:
       - id: black
   - repo: https://github.com/jlec/pre-commit-cruft
@@ -93,22 +103,23 @@ repos:
         args:
           - --in-place
           - --all
+          - --trailing-comma-inline-array
   - repo: https://github.com/zricethezav/gitleaks
-    rev: v8.16.3
+    rev: v8.18.1
     hooks:
       - id: gitleaks
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.23.1
+    rev: 0.27.3
     hooks:
       - id: check-github-workflows
 
   - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: v0.0.270
+    rev: v0.1.7
     hooks:
       - id: ruff
         args: [--fix, --exit-non-zero-on-fix]
   - repo: https://github.com/gitguardian/ggshield
-    rev: v1.16.0
+    rev: v1.22.0
     hooks:
       - id: ggshield
         stages: ["push"]
