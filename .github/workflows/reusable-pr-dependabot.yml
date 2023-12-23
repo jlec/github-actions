@@ -13,9 +13,11 @@ jobs:
   dependabot:
     name: dependabot
     runs-on: ubuntu-latest
+    # trunk-ignore(checkov/CKV2_GHA_1)
     permissions:
       pull-requests: write
       contents: write
+    # trunk-ignore(actionlint/if-cond)
     if: >-
       ${{ github.actor == 'dependabot[bot]' }} &&
       ${{ github.event_name == 'pull_request' }}

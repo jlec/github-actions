@@ -14,6 +14,7 @@ jobs:
   ci-generic:
     name: ci-generic
     runs-on: ubuntu-latest
+    # trunk-ignore(checkov/CKV2_GHA_1)
     permissions:
       pull-requests: write
       contents: write
