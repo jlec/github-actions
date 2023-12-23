@@ -11,7 +11,7 @@ on:
         required: true
       tfe_release_token:
         required: true
-      token:
+      github-token:
         required: true
 
 jobs:
@@ -61,6 +61,6 @@ jobs:
         uses: ouzi-dev/commit-status-updater@v2
         with:
           status: "success"
-          token: ${{ secrets.token }}
+          token: ${{ secrets.github-token }}
           name: "GithubActions - ${GITHUB_WORKFLOW}"
           ignoreForks: true

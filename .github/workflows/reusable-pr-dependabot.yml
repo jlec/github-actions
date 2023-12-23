@@ -3,10 +3,9 @@ name: Dependabot PR
 
 # yamllint disable-line rule:truthy
 on:
-  # yamllint disable-line rule:empty-values
   workflow_call:
     secrets:
-      token:
+      github-token:
         required: true
 
 jobs:
@@ -26,9 +25,9 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          token: ${{ secrets.token }}
+          token: ${{ secrets.github-token }}
       - name: Merge Dependabot PR
         uses: fastify/github-action-merge-dependabot@v3
         with:
-          github-token: ${{ secrets.token }}
+          github-token: ${{ secrets.github-token }}
           target: minor,patch

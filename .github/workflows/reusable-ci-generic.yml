@@ -7,7 +7,7 @@ on:
     secrets:
       pat:
         required: true
-      token:
+      github-token:
         required: true
 
 jobs:

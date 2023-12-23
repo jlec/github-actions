@@ -29,6 +29,8 @@ jobs:
       !startsWith(github.event.head_commit.message, 'WIP')
     name: "Run Linting against all files"
     uses: jlec/github-actions/.github/workflows/reusable-linting.yml@main
+    secrets:
+      github-token: ${{ secrets.GITHUB_TOKEN }}
 
   dependabot:
     name: "Handle dependabot PR"
@@ -44,7 +46,7 @@ jobs:
       contents: write
       pull-requests: write
     secrets:
-      token: ${{ secrets.GITHUB_TOKEN }}
+      github-token: ${{ secrets.GITHUB_TOKEN }}
 
   ci-generic:
     name: "Run generic CI"
@@ -62,7 +64,7 @@ jobs:
       pull-requests: write
     secrets:
       pat: ${{ secrets.PAT_GITHUB_TOKEN }}
-      token: ${{ secrets.GITHUB_TOKEN }}
+      github-token: ${{ secrets.GITHUB_TOKEN }}
 
   ci-release:
     name: "Run Release CI"
@@ -79,4 +81,4 @@ jobs:
       pull-requests: write
     secrets:
       pat: ${{ secrets.PAT_GITHUB_TOKEN }}
-      token: ${{ secrets.GITHUB_TOKEN }}
+      github-token: ${{ secrets.GITHUB_TOKEN }}

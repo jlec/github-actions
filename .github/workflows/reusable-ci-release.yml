@@ -7,7 +7,7 @@ on:
     secrets:
       pat:
         required: true
-      token:
+      github-token:
         required: true
     inputs:
       artifacts:
@@ -19,6 +19,7 @@ jobs:
   ci-release:
     name: ci-release
     runs-on: ubuntu-latest
+    # trunk-ignore(checkov/CKV2_GHA_1)
     permissions:
       pull-requests: write
       contents: write
@@ -34,7 +35,7 @@ jobs:
       - name: Update License year
         uses: FantasticFiasco/action-update-license-year@v3
         with:
-          token: ${{ secrets.token }}
+          token: ${{ secrets.github-token }}
           assignees: jlec
           labels: license,year
       - name: Merge Year Bump PR
@@ -74,7 +75,7 @@ jobs:
           body_path: "body.md"
           tag_name: ${{ env.REVISION }}
         env:
-          GITHUB_TOKEN: ${{ secrets.token }}
+          GITHUB_TOKEN: ${{ secrets.github-token }}
 
       - name: Print Version
         run: echo "Bumped to version ${{ steps.cz.outputs.version }}"

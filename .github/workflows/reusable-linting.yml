@@ -8,6 +8,8 @@ on:
     secrets:
       ansible-deploy-keys:
         required: false
+      github-token:
+        required: true
     inputs:
       ansible-support:
         default: false
@@ -27,6 +29,11 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      - run: "git config --global url.'https://jlec:${{ secrets.github-token }}@github.com/'.insteadOf git@github.com:"
+      # yamllint disable-line rule:line-length
+      - run: "git config --global url.'https://jlec:${{ secrets.github-token }}@github.com/'.insteadOf 'https://github.com/'"
+      - run: "git config --global url.'https://'.insteadOf git://"
+      - run: "git config --global user.name jlec"
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
@@ -68,7 +75,7 @@ jobs:
       - name: Run pre-commit against all files
         uses: pre-commit/action@v3.0.0
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.github-token }}
           # yamllint disable-line rule:line-length
           SKIP: detect-aws-credentials,protect-first-parent,terraform_docs,terraform_providers_lock,terraform_tflint,terraform_tfsec,terraform_checkov,terrascan,helm-docs-built,go-vet,go-unit-tests,go-static-check,tfupdate,terraform_validate,terragrunt_validate
       # RUN GITLEAKS
