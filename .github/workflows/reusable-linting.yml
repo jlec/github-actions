@@ -32,7 +32,7 @@ jobs:
         with:
           # Set up to your needs
           # cache:
-          python-version: ">=3.10"
+          python-version: ">=3.12"
       - name: Setup SSH agent
         uses: webfactory/ssh-agent@v0.8.0
         if: ${{ inputs.ansible-support }}
@@ -46,7 +46,7 @@ jobs:
         with:
           # Enable of go.sum is present
           # cache: true
-          go-version: ">=1.19.0"
+          go-version: ">=1.21.0"
       - name: Setup Terragrunt
         uses: autero1/action-terragrunt@v1.3.2
         with:
@@ -71,7 +71,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # yamllint disable-line rule:line-length
           SKIP: detect-aws-credentials,protect-first-parent,terraform_docs,terraform_providers_lock,terraform_tflint,terraform_tfsec,terraform_checkov,terrascan,helm-docs-built,go-vet,go-unit-tests,go-static-check,tfupdate,terraform_validate,terragrunt_validate
-
       # RUN GITLEAKS
       - name: Run GitLeaks
         uses: gitleaks/gitleaks-action@v2
