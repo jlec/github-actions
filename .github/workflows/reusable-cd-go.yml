@@ -3,7 +3,6 @@ name: GO Releaser
 
 # yamllint disable-line rule:truthy
 on:
-  # yamllint disable-line rule:empty-values
   workflow_call:
     secrets:
       gpg_release_key:
@@ -19,6 +18,7 @@ jobs:
   goreleaser:
     name: goreleaser
     runs-on: ubuntu-latest
+    # trunk-ignore(checkov/CKV2_GHA_1)
     permissions:
       contents: write
       statuses: write
@@ -36,7 +36,6 @@ jobs:
           cache: true
           go-version-file: "go.mod"
       - run: "git config --global url.'https://jlec:${{ secrets.pat }}@github.com/'.insteadOf git@github.com:"
-      # yamllint disable-line rule:line-length
       - run: "git config --global url.'https://jlec:${{ secrets.pat }}@github.com/'.insteadOf 'https://github.com/'"
       - run: "git config --global url.'https://'.insteadOf git://"
       - run: "git config --global user.name jlec"
