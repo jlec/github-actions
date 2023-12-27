@@ -1,6 +1,6 @@
 {
   "checkout": null,
-  "commit": "e14451c3efff5e3173c1e55cd25da3c595e961e0",
+  "commit": "b7febad6e8d21a29ba36d6414d91728515761cab",
   "context": {
     "cookiecutter": {
       "email": "justin@jlec.de",
@@ -15,7 +15,6 @@
       "project_support_ansible_playbook": false,
       "project_support_ansible_role": false,
       "project_support_golang": false,
-      "project_support_nomad": false,
       "project_support_packer": false,
       "project_support_terraform": false,
       "project_support_terraform_module": false,
