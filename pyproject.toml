@@ -20,9 +20,9 @@ name = "github_actions"
 version = "0.0.58"
 
 [tool.poetry.dependencies]
-ansible = "^9.1.0"
+ansible = "^9.2.0"
 molecule = "^24.2.0"
-netaddr = "^1"
+netaddr = "^1.0.0"
 pytest-testinfra = "^10.0.0"
 python = "~3.12"
 
@@ -32,17 +32,17 @@ pytest-testinfra = ["ansible", "docker", "local"]
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.1.1"
-commitizen = "^3.13.0"
+commitizen = "^3.14.1"
 cruft = "^2.15.0"
 poetry = "^1.7.1"
-pre-commit = "^3.6.0"
+pre-commit = "^3.6.1"
 pytest = "^8.0.0"
 pytest-clarity = "^1.0.1"
 pytest-cookies = "^0"
 pytest-parallel = "^0"
 pytest-xdist = "^3.5.0"
 pyyaml = "^6.0.1"
-yamllint = "^1.33.0"
+yamllint = "^1.34.0"
 
 [tool.ruff]
 exclude = ["obsolete"]
