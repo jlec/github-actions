@@ -73,7 +73,7 @@ jobs:
       - name: Install ansible deps
         run: "task ansible-init"
       - name: Run pre-commit against all files
-        uses: pre-commit/action@v3.0.0
+        uses: pre-commit/action@v3.0.1
         env:
           GITHUB_TOKEN: ${{ secrets.github-token }}
           # yamllint disable-line rule:line-length
