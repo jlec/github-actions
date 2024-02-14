@@ -21,8 +21,6 @@ jobs:
     name: linting
     runs-on: ubuntu-latest
     env:
-      ANSIBLE_COLLECTIONS_PATH: /home/runner/.ansible/collections:/usr/share/ansible/collections
-      ANSIBLE_ROLES_PATH: /home/runner/.ansible/roles:/usr/share/ansible/roles:/etc/ansible/roles
       PY_RUNNER: ""
     steps:
       - name: Checkout repository
