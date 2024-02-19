@@ -53,7 +53,7 @@ jobs:
           # cache: true
           go-version: ">=1.21.0"
       - name: Setup Terragrunt
-        uses: autero1/action-terragrunt@v1.3.2
+        uses: autero1/action-terragrunt@v3.0.1
         with:
           terragrunt_version: latest
       - name: Install shfmt
