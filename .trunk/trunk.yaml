@@ -17,7 +17,7 @@ actions:
     - trunk-fmt-pre-commit
     - trunk-upgrade-available
 cli:
-  version: 1.19.0
+  version: 1.20.1
 # This is the section where you manage your linters. (https://docs.trunk.io/check/configuration)
 lint:
   disabled:
@@ -27,18 +27,18 @@ lint:
     - terrascan
     - tfsec
   enabled:
-    - actionlint@1.6.26
+    - actionlint@1.6.27
     - ansible-lint@24.2.0
     - bandit@1.7.7
-    - black@24.1.1
-    - checkov@3.2.19
+    - black@24.2.0
+    - checkov@3.2.26
     - git-diff-check
     - gitleaks@8.18.2
     - gofmt@1.20.4
     - gofumpt@0.5.0
     - goimports@0.9.1
     - gokart@0.5.1
-    - golangci-lint@1.56.1
+    - golangci-lint@1.56.2
     - golines@0.12.2
     - isort@5.13.2
     - kube-linter@0.6.4
@@ -47,18 +47,18 @@ lint:
     - osv-scanner@1.6.2
     - pre-commit-hooks@4.5.0
     - prettier@3.2.5
-    - ruff@0.2.1
-    - semgrep@1.60.0
+    - ruff@0.2.2
+    - semgrep@1.62.0
     - shellcheck@0.9.0
     - shfmt@3.6.0
     - taplo@0.8.1
     - terraform@1.5.0
-    - terragrunt@0.55.1
+    - terragrunt@0.55.9
     - tflint@0.50.3
     - trivy@0.49.1
-    - trufflehog-git@3.67.5
-    - trufflehog@3.67.5
-    - yamllint@1.34.0
+    - trufflehog-git@3.68.2
+    - trufflehog@3.68.2
+    - yamllint@1.35.1
   ignore:
     - linters: [ALL]
       paths:
@@ -86,7 +86,7 @@ lint:
 plugins:
   sources:
     - id: trunk
-      ref: v1.4.2
+      ref: v1.4.3
       uri: https://github.com/trunk-io/plugins
 # Many linters and tools depend on runtimes - configure them here. (https://docs.trunk.io/runtimes)
 runtimes:
