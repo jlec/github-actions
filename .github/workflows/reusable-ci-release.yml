@@ -69,7 +69,7 @@ jobs:
           publish: false
 
       - name: Release on Github w/ files
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           files: ${{ inputs.artifacts }}
           body_path: "body.md"
