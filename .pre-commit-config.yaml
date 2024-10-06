@@ -7,16 +7,17 @@ exclude: >
   .pytest_cache|
   .ruff_cache|
   .terraform|
-  .trunk/actions|
-  .trunk/logs|
-  .trunk/notifications|
-  .trunk/out|
-  .trunk/plugins|
   .vscode/launch.json
+  data
   )
 repos:
+  - repo: https://github.com/psf/black
+    rev: 24.8.0
+    hooks:
+      - id: black
+      - id: black-jupyter
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
+    rev: v4.6.0
     hooks:
       - id: check-added-large-files
       - id: check-ast
@@ -54,7 +55,7 @@ repos:
       - id: sort-simple-yaml
       - id: trailing-whitespace
   - repo: https://github.com/commitizen-tools/commitizen
-    rev: v3.20.0
+    rev: v3.29.1
     hooks:
       - id: commitizen
         stages:
@@ -84,112 +85,33 @@ repos:
       # - id: script-must-have-extension
       # - id: script-must-not-have-extension
       - id: shfmt
-  - repo: https://github.com/psf/black
-    rev: 24.3.0
-    hooks:
-      - id: black
-  - repo: https://github.com/PyCQA/bandit
-    rev: 1.7.8
-    hooks:
-      - id: bandit
   - repo: https://github.com/jlec/pre-commit-cruft
     rev: v0.1.1
     hooks:
       - id: cruft
         stages: ["push"]
   - repo: https://github.com/hadolint/hadolint
-    rev: v2.12.1-beta
+    rev: v2.13.0-beta
     hooks:
       - id: hadolint-docker
-  - repo: https://github.com/pappasam/toml-sort
-    rev: v0.23.1
+  - repo: https://github.com/ComPWA/taplo-pre-commit
+    rev: "v0.9.3"
     hooks:
-      - id: toml-sort
-        args:
-          - --in-place
-          - --all
-          - --trailing-comma-inline-array
+      - id: taplo-lint
+      - id: taplo-format
   - repo: https://github.com/zricethezav/gitleaks
-    rev: v8.18.2
+    rev: v8.19.3
     hooks:
       - id: gitleaks
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.28.0
+    rev: 0.29.3
     hooks:
       - id: check-github-workflows
-
-  - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: v0.3.4
-    hooks:
-      - id: ruff
-        args: [--fix, --exit-non-zero-on-fix]
   - repo: https://github.com/gitguardian/ggshield
-    rev: v1.26.0
+    rev: v1.32.1
     hooks:
       - id: ggshield
         stages: ["push"]
-  - repo: https://github.com/ansible-community/ansible-lint
-    rev: v24.2.1
-    hooks:
-      - id: ansible-lint
-  - repo: https://github.com/golangci/golangci-lint
-    rev: v1.57.2
-    hooks:
-      - id: golangci-lint-full
-        args: ["--timeout", "2m"]
-  - repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
-    rev: v2.12.0
-    hooks:
-      - id: pretty-format-golang
-        args: [--autofix]
-  - repo: https://github.com/Bahjat/pre-commit-golang
-    rev: v1.0.3
-    hooks:
-      - id: go-fmt-import
-      - id: go-vet
-      - id: go-lint
-      - id: go-unit-tests
-      - id: gofumpt # requires github.com/mvdan/gofumpt
-      # - id: go-err-check # requires github.com/kisielk/errcheck
-      - id: go-static-check # install https://staticcheck.io/docs/
-      # - id: go-ruleguard # requires https://github.com/quasilyte/go-ruleguard
-      #   args: [rules/rules.go] # required
-  - repo: https://github.com/norwoodj/helm-docs
-    rev: v1.13.1
-    hooks:
-      - id: helm-docs-built
-  - repo: https://github.com/antonbabenko/pre-commit-terraform
-    rev: v1.88.4
-    hooks:
-      # - id: infracost_breakdown
-      # - id: tfupdate
-      - id: terraform_fmt
-      - id: terraform_docs
-        args:
-          - --hook-config=--add-to-existing-file=true
-      - id: terragrunt_fmt
-      # - id: terragrunt_validate
-      - id: terraform_validate
-      - id: terraform_providers_lock
-        args:
-          - --hook-config=--mode=always-regenerate-lockfile
-          - --args=-platform=darwin_arm64
-        stages: ["push"]
-      - id: terraform_tflint
-      - id: terraform_trivy
-        stages: ["push"]
-      - id: terraform_checkov
-        args:
-          - --args=--config-file=.checkov.yaml
-        stages: ["push"]
-      # excluded until https://github.com/tenable/terrascan/issues/1390 is resolved
-      # - id: terrascan
-      #   args:
-      #     - --args=--iac-dir deployment
-      #     - --args=--non-recursive
-      #     - --args=--skip-rules="AC_AWS_0207"
-      #     - --args=--verbose
-      #   stages: ["push"]
   - repo: https://github.com/pre-commit/mirrors-prettier
     rev: "v4.0.0-alpha.8"
     hooks:

@@ -1,7 +1,3 @@
-[build-system]
-build-backend = "poetry.core.masonry.api"
-requires = ["poetry-core>=1.0.0"]
-
 [tool.black]
 line-length = 128
 
@@ -17,48 +13,43 @@ authors = ["Justin Lecher <justin@jlec.de>"]
 description = "Github Actions for reuse across repos"
 license = "Apache-2.0"
 name = "github_actions"
+package-mode = false
+readme = "README.md"
 version = "0.0.62"
 
 [tool.poetry.dependencies]
-ansible = "^10.0"
-molecule = "^24.2"
-netaddr = "^1.2"
-pytest-testinfra = "^10.1"
-python = "~3.12"
-
-[tool.poetry.extras]
-molecule = ["ansible", "docker", "lint"]
-pytest-testinfra = ["ansible", "docker", "local"]
+python = "^3"
 
 [tool.poetry.group.dev.dependencies]
-black = "^24.3"
-commitizen = "^3.20"
-cruft = "^2.15"
-poetry = "^1.8"
-pre-commit = "^3.7"
-pytest = "^8.1"
-pytest-clarity = "^1.0"
-pytest-cookies = "^0"
+bandit = "^1"
+black = "^24"
+bpython = "^0"
+commitizen = "^3"
+cruft = "^2"
+pre-commit = "^3"
+pytest = "^8"
+pytest-clarity = "^1"
 pytest-parallel = "^0"
-pytest-xdist = "^3.5"
-pyyaml = "^6.0"
-yamllint = "^1.35"
+pytest-xdist = "^3"
+ruff-lsp = "^0"
+toml-sort = "^0"
 
 [tool.ruff]
 exclude = ["obsolete"]
+line-length = 128
+
+[tool.ruff.lint]
 ignore = [
   "B008", # do not perform function calls in argument defaults
   "C901", # too complex
-  "E501", # line too long, handled by black
 ]
-line-length = 128
 select = [
   "B", # flake8-bugbear
-  # "I",  # isort
+  "I", # isort
   "C", # flake8-comprehensions
   "E", # pycodestyle errors
   "F", # pyflakes
   "W", # pycodestyle warnings
 ]
 
-[tool.ruff.per-file-ignores]
+[tool.ruff.lint.per-file-ignores]
