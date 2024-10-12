@@ -70,6 +70,10 @@ jobs:
         run: "if [[ -d packer ]]; then cd packer && task ansible-init; fi"
       - name: Install ansible deps
         run: "task ansible-init"
+      - name: Install Terraform
+        uses: little-core-labs/install-terraform@v2.0.0
+        with:
+          version: 1.9.7
       - name: Run pre-commit against all files
         uses: pre-commit/action@v3.0.1
         env:
