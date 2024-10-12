@@ -1,7 +1,7 @@
 ---
 # See https://pre-commit.com for more information
 # See https://pre-commit.com/hooks.html for more hooks
-default_stages: [commit]
+default_stages: [pre-commit]
 exclude: >
   (?x)^(
   .pytest_cache|
@@ -12,12 +12,12 @@ exclude: >
   )
 repos:
   - repo: https://github.com/psf/black
-    rev: 24.8.0
+    rev: 24.10.0
     hooks:
       - id: black
       - id: black-jupyter
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.6.0
+    rev: v5.0.0
     hooks:
       - id: check-added-large-files
       - id: check-ast
@@ -89,9 +89,9 @@ repos:
     rev: v0.1.1
     hooks:
       - id: cruft
-        stages: ["push"]
+        stages: ["pre-push"]
   - repo: https://github.com/hadolint/hadolint
-    rev: v2.13.0-beta
+    rev: v2.13.1-beta
     hooks:
       - id: hadolint-docker
   - repo: https://github.com/ComPWA/taplo-pre-commit
@@ -100,18 +100,18 @@ repos:
       - id: taplo-lint
       - id: taplo-format
   - repo: https://github.com/zricethezav/gitleaks
-    rev: v8.19.3
+    rev: v8.20.1
     hooks:
       - id: gitleaks
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.29.3
+    rev: 0.29.4
     hooks:
       - id: check-github-workflows
   - repo: https://github.com/gitguardian/ggshield
     rev: v1.32.1
     hooks:
       - id: ggshield
-        stages: ["push"]
+        stages: ["pre-push"]
   - repo: https://github.com/pre-commit/mirrors-prettier
     rev: "v4.0.0-alpha.8"
     hooks:
