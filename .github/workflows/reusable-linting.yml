@@ -23,10 +23,14 @@ jobs:
     env:
       PY_RUNNER: ""
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - name: Setup SSH agent
+        uses: webfactory/ssh-agent@v0.9.0
+        if: ${{ inputs.ansible-support }}
         with:
-          fetch-depth: 0
+          ssh-private-key: >-
+            ${{ secrets.ansible-deploy-keys }}
+      - name: Setup GIT user
+        uses: fregante/setup-git-user@v2
       - run: "git config --global url.'https://jlec:${{ secrets.github-token }}@github.com/'.insteadOf git@github.com:"
       # yamllint disable-line rule:line-length
       - run: "git config --global url.'https://jlec:${{ secrets.github-token }}@github.com/'.insteadOf 'https://github.com/'"
@@ -38,14 +42,6 @@ jobs:
           # Set up to your needs
           # cache:
           python-version: ">=3.12"
-      - name: Setup SSH agent
-        uses: webfactory/ssh-agent@v0.9.0
-        if: ${{ inputs.ansible-support }}
-        with:
-          ssh-private-key: >-
-            ${{ secrets.ansible-deploy-keys }}
-      - name: Setup GIT user
-        uses: fregante/setup-git-user@v2
       - name: Install GO
         uses: actions/setup-go@v5
         with:
@@ -74,6 +70,10 @@ jobs:
         uses: little-core-labs/install-terraform@v2.0.0
         with:
           version: 1.9.7
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Run pre-commit against all files
         uses: pre-commit/action@v3.0.1
         env:

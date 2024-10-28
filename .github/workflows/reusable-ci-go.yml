@@ -13,10 +13,6 @@ jobs:
     name: go-build-test
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
       - run: "git config --global url.'https://jlec:${{ secrets.pat }}@github.com/'.insteadOf git@github.com:"
       # yamllint disable-line rule:line-length
       - run: "git config --global url.'https://jlec:${{ secrets.pat }}@github.com/'.insteadOf 'https://github.com/'"
@@ -27,6 +23,10 @@ jobs:
         with:
           cache: true
           go-version: ">=1.23.0"
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: GO Build
         run: go build -v ./...
       - name: GO Test
