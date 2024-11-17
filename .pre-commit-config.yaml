@@ -12,12 +12,12 @@ exclude: >
   )
 repos:
   - repo: https://github.com/psf/black
-    rev: 24.10.0
+    rev: "24.10.0"
     hooks:
       - id: black
       - id: black-jupyter
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v5.0.0
+    rev: "v5.0.0"
     hooks:
       - id: check-added-large-files
       - id: check-ast
@@ -55,19 +55,19 @@ repos:
       - id: sort-simple-yaml
       - id: trailing-whitespace
   - repo: https://github.com/commitizen-tools/commitizen
-    rev: v3.30.0
+    rev: "v3.31.0"
     hooks:
       - id: commitizen
         stages:
           - commit-msg
   - repo: https://github.com/adrienverge/yamllint
-    rev: v1.35.1
+    rev: "v1.35.1"
     hooks:
       - id: yamllint
   # - repo: https://github.com/jumanjihouse/pre-commit-hooks
   #   rev: 3.0.0
   - repo: https://github.com/jlec/pre-commit-hooks
-    rev: gh-111
+    rev: "gh-111"
     hooks:
       # - id: bundler-audit
       - id: check-mailmap
@@ -86,12 +86,12 @@ repos:
       # - id: script-must-not-have-extension
       - id: shfmt
   - repo: https://github.com/jlec/pre-commit-cruft
-    rev: v0.1.1
+    rev: "v0.1.1"
     hooks:
       - id: cruft
         stages: ["pre-push"]
   - repo: https://github.com/hadolint/hadolint
-    rev: v2.13.1-beta
+    rev: "v2.13.1-beta"
     hooks:
       - id: hadolint-docker
   - repo: https://github.com/ComPWA/taplo-pre-commit
@@ -100,15 +100,15 @@ repos:
       - id: taplo-lint
       - id: taplo-format
   - repo: https://github.com/zricethezav/gitleaks
-    rev: v8.21.1
+    rev: "v8.21.2"
     hooks:
       - id: gitleaks
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.29.4
+    rev: "0.29.4"
     hooks:
       - id: check-github-workflows
   - repo: https://github.com/gitguardian/ggshield
-    rev: v1.32.2
+    rev: "v1.33.0"
     hooks:
       - id: ggshield
         stages: ["pre-push"]
