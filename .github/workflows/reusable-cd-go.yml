@@ -23,7 +23,7 @@ jobs:
       contents: write
       statuses: write
     env:
-      GOPRIVATE: github.com/jlec-go
+      GOPRIVATE: github.com/go-jlec
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
