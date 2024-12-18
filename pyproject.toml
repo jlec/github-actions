@@ -5,7 +5,7 @@ line-length = 128
 name = "cz_conventional_commits"
 tag_format = "v$version"
 update_changelog_on_bump = true
-version = "0.0.71"
+version = "0.0.72"
 version_files = ["VERSION", "pyproject.toml:version"]
 
 [tool.poetry]
@@ -15,7 +15,7 @@ license = "Apache-2.0"
 name = "github_actions"
 package-mode = false
 readme = "README.md"
-version = "0.0.71"
+version = "0.0.72"
 
 [tool.poetry.dependencies]
 python = ">=3.11,<4.0"
