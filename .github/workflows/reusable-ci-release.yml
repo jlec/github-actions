@@ -38,6 +38,13 @@ jobs:
           token: ${{ secrets.github-token }}
           assignees: jlec
           labels: license,year
+      - name: Update License year
+        uses: FantasticFiasco/action-update-license-year@v3
+        with:
+          token: ${{ secrets.github-token }}
+          assignees: jlec
+          labels: license,year
+          path: "**/*.go"
       - name: Merge Year Bump PR
         env:
           GITHUB_TOKEN: ${{ secrets.pat }}
