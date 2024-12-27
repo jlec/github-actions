@@ -39,8 +39,8 @@ jobs:
           assignees: jlec
           labels: license,year
           path: |
-            - **/*.go
-            - LICENSE
+            **/*.go
+            LICENSE
       - name: Merge Year Bump PR
         env:
           GITHUB_TOKEN: ${{ secrets.pat }}
