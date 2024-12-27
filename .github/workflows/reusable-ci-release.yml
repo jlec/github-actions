@@ -45,8 +45,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.pat }}
         run: |-
-          if [[ $(gh pr list --label license,year --json number -q .[].number | wc -l) -gt 0 ]]; then
-          gh pr merge --rebase --delete-branch
+          n=$(gh pr list --label license,year --json number -q .[].number)
+          if [[ -n ${n} ]]; then
+          gh pr merge ${n} --rebase --delete-branch
           else
           git checkout main
           fi
