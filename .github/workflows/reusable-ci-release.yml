@@ -32,13 +32,13 @@ jobs:
         with:
           fetch-depth: 0
           token: ${{ secrets.pat }}
-      - name: Update License year
+      - name: Update License year in LICENSE
         uses: FantasticFiasco/action-update-license-year@v3
         with:
           token: ${{ secrets.github-token }}
           assignees: jlec
           labels: license,year
-      - name: Update License year
+      - name: Update License year in src files
         uses: FantasticFiasco/action-update-license-year@v3
         with:
           token: ${{ secrets.github-token }}
