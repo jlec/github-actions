@@ -35,7 +35,7 @@ jobs:
         with:
           cache: true
           go-version-file: "go.mod"
-      - run: "git config --global url.'https://jlec:${{ secrets.pat }}@github.com/'.insteadOf git@github.com:"
+      - run: "git config --global url.'https://jlec:${{ secrets.pat }}@github.com/'.insteadOf https://github.com/"
       - run: "git config --global url.'https://jlec:${{ secrets.pat }}@github.com/'.insteadOf 'https://github.com/'"
       - run: "git config --global url.'https://'.insteadOf git://"
       - run: "git config --global user.name jlec"
