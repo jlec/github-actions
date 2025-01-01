@@ -16,6 +16,9 @@ on:
         required: false
         type: boolean
 
+env:
+  ANSIBLE_FORCE: ${{ vars.ANSIBLE_FORCE }}
+
 jobs:
   linting:
     name: linting
