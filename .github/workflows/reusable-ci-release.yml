@@ -45,7 +45,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.pat }}
         run: |-
+          sleep 5
           n=$(gh pr list --label license,year --json number -q .[].number)
+          echo "PR number: ${n}"
           if [[ -n ${n} ]]; then
           gh pr merge ${n} --rebase --delete-branch
           else
