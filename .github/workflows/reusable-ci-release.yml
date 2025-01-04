@@ -14,6 +14,10 @@ on:
         type: string
         required: false
         default: CHANGELOG.md
+      licensed-files:
+        type: string
+        required: false
+        default: LICENSE
 
 jobs:
   ci-release:
@@ -38,9 +42,7 @@ jobs:
           token: ${{ secrets.github-token }}
           assignees: jlec
           labels: license,year
-          path: |
-            **/*.go
-            LICENSE
+          path: ${{ inputs.licensed-files }}
       - name: Merge Year Bump PR
         env:
           GITHUB_TOKEN: ${{ secrets.pat }}
