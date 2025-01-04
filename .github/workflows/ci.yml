@@ -79,3 +79,6 @@ jobs:
     secrets:
       pat: ${{ secrets.PAT_GITHUB_TOKEN }}
       github-token: ${{ secrets.GITHUB_TOKEN }}
+    with:
+      licensed-files: |-
+        LICENSE
