@@ -42,7 +42,7 @@ jobs:
           # cache:
           python-version: ">=3.12"
       - name: Setup SSH agent
-        uses: webfactory/ssh-agent@v0.9.0
+        uses: webfactory/ssh-agent@v0.9.1
         if: ${{ inputs.ansible-support }}
         with:
           ssh-private-key: >-
