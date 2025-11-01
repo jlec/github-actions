@@ -27,7 +27,7 @@ jobs:
       PY_RUNNER: ""
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
       - run: "git config --global url.'https://jlec:${{ secrets.github-token }}@github.com/'.insteadOf https://github.com/"
@@ -36,13 +36,13 @@ jobs:
       - run: "git config --global url.'https://'.insteadOf git://"
       - run: "git config --global user.name jlec"
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           # Set up to your needs
           # cache:
           python-version: ">=3.12"
       - name: Setup SSH agent
-        uses: webfactory/ssh-agent@v0.9.0
+        uses: webfactory/ssh-agent@v0.9.1
         if: ${{ inputs.ansible-support }}
         with:
           ssh-private-key: >-
@@ -50,7 +50,7 @@ jobs:
       - name: Setup GIT user
         uses: fregante/setup-git-user@v2
       - name: Install GO
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v6
         with:
           # Enable of go.sum is present
           # cache: true
@@ -60,7 +60,7 @@ jobs:
         with:
           terragrunt-version: latest
       - name: Install shfmt
-        uses: mfinelli/setup-shfmt@v3
+        uses: mfinelli/setup-shfmt@v4
       - name: Install staticcheck
         run: go install honnef.co/go/tools/cmd/staticcheck@latest
       - name: Install Task

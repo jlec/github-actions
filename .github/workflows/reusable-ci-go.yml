@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
       - run: "git config --global url.'https://jlec:${{ secrets.pat }}@github.com/'.insteadOf https://github.com/"
@@ -23,7 +23,7 @@ jobs:
       - run: "git config --global url.'https://'.insteadOf git://"
       - run: "git config --global user.name jlec"
       - name: Set up Go
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v6
         with:
           cache: true
           go-version: ">=1.23.0"
@@ -34,7 +34,7 @@ jobs:
       - name: GO vet
         run: go vet ./...
       - name: Run staticcheck
-        uses: dominikh/staticcheck-action@v1.3.1
+        uses: dominikh/staticcheck-action@v1.4.0
         with:
           install-go: false
           min-go-version: 1.23.0
