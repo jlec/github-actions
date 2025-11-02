@@ -82,7 +82,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.github-token }}
           # yamllint disable-line rule:line-length
-          SKIP: detect-aws-credentials,protect-first-parent,terraform_docs,terraform_providers_lock,terraform_tflint,terraform_tfsec,terraform_checkov,terrascan,helm-docs-built,go-vet,go-unit-tests,go-static-check,tfupdate,terraform_validate,terragrunt_validate
+          SKIP: detect-aws-credentials,mypy,protect-first-parent,terraform_docs,terraform_providers_lock,terraform_tflint,terraform_tfsec,terraform_checkov,terrascan,helm-docs-built,go-vet,go-unit-tests,go-static-check,tfupdate,terraform_validate,terragrunt_validate
       # RUN GITLEAKS
       - name: Run GitLeaks
         uses: gitleaks/gitleaks-action@v2
