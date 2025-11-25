@@ -1,11 +1,12 @@
 {
   "checkout": null,
-  "commit": "c19671ba8caf20d4ba7caa6d20c451ba14c4d6f8",
+  "commit": "6edf0c0d23bbc4aeed37fea50b63db14cf7f04d0",
   "context": {
     "cookiecutter": {
       "email": "justin@jlec.de",
       "full_name": "Justin Lecher",
       "github_owner": "jlec",
+      "github_username": "jlec",
       "github_repo": "github-actions",
       "project_name": "Github Actions",
       "project_short_description": "Github Actions for reuse across repos",
@@ -30,7 +31,7 @@
       "_copy_without_render": ["charts/README.md.gotmpl"],
       "_go_app_name": "goer",
       "_template": "https://github.com/jlec/cookiecutter-general.git",
-      "_commit": "c19671ba8caf20d4ba7caa6d20c451ba14c4d6f8"
+      "_commit": "6edf0c0d23bbc4aeed37fea50b63db14cf7f04d0"
     }
   },
   "directory": null,

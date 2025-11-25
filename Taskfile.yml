@@ -6,8 +6,6 @@ version: "3"
 env:
   PY_PM: uv
   PY_RUNNER: uv run
-  PYTESTARGS: -vvl --numprocesses auto
-  BLACKARGS: --line-length 128 --check --diff
 
 tasks:
   default:
@@ -131,7 +129,7 @@ tasks:
   pytest:
     desc: Run pytest
     cmds:
-      - cmd: $PY_RUNNER pytest $PYTESTARGS tests
+      - cmd: $PY_RUNNER pytest
 
   #############################################################################
   #

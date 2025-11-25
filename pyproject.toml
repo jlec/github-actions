@@ -1,39 +1,43 @@
+[project]
+name = "github_actions"
+version = "0.0.79"
+description = "Github Actions for reuse across repos"
+readme = "README.md"
+requires-python = ">=3.12,<4.0"
+license = "Apache-2.0"
+dependencies = []
+
+[[project.authors]]
+name = "Justin Lecher"
+email = "justin@jlec.de"
+
 [dependency-groups]
 dev = [
   "bpython>=0.25",
   "ptpython>=3.0.31",
+  "pytest>=8.3.5",
   "pytest-asyncio>=1.2.0",
   "pytest-clarity>=1.0.1",
   "pytest-xdist>=3.6.1",
-  "pytest>=8.3.5",
 ]
-
-[project]
-dependencies = []
-description = "Github Actions for reuse across repos"
-license = "Apache-2.0"
-name = "github_actions"
-readme = "README.md"
-requires-python = ">=3.12,<4.0"
-version = "0.0.79"
-
-[[project.authors]]
-email = "justin@jlec.de"
-name = "Justin Lecher"
-
-[tool.black]
-line-length = 128
 
 [tool.commitizen]
 name = "cz_conventional_commits"
 tag_format = "v$version"
 update_changelog_on_bump = true
-version = "0.0.0"
-version_files = ["VERSION", "pyproject.toml:version"]
+version = "0.0.79"
+version_files = [
+  "VERSION",
+  "pyproject.toml:version",
+]
 
 [tool.ruff]
-exclude = ["obsolete"]
 line-length = 128
+target-version = "py312"
+
+[tool.ruff.format]
+indent-style = "space"
+quote-style = "double"
 
 [tool.ruff.lint]
 ignore = ["B008", "C901"]
