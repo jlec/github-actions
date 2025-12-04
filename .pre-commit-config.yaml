@@ -1,6 +1,8 @@
 ---
 # See https://pre-commit.com for more information
 # See https://pre-commit.com/hooks.html for more hooks
+default_language_version:
+  python: python3.14
 default_stages: [pre-commit]
 exclude: >
   (?x)^(
@@ -93,25 +95,20 @@ repos:
         args:
           - --config
           - .trivy.yml
-          - --show-suppressed
-          - --severity
-          - HIGH,CRITICAL
           - . # last arg indicates the path/file to scan
       - id: trivyconfig-docker
         stages: ["pre-push"]
         args:
           - --config
           - .trivy.yml
-          - --severity
-          - HIGH,CRITICAL
           - . # last arg indicates the path/file to scan
   - repo: https://github.com/tombi-toml/tombi-pre-commit
-    rev: "v0.6.54"
+    rev: "v0.7.0"
     hooks:
       - id: tombi-format
       - id: tombi-lint
   - repo: https://github.com/zricethezav/gitleaks
-    rev: "v8.29.1"
+    rev: "v8.30.0"
     hooks:
       - id: gitleaks
   - repo: https://github.com/python-jsonschema/check-jsonschema

@@ -33,7 +33,7 @@ version_files = [
 
 [tool.ruff]
 line-length = 128
-target-version = "py312"
+target-version = "py314"
 
 [tool.ruff.format]
 indent-style = "space"
