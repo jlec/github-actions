@@ -27,7 +27,7 @@ jobs:
       PY_RUNNER: ""
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
       - run: "git config --global url.'https://jlec:${{ secrets.github-token }}@github.com/'.insteadOf https://github.com/"
@@ -40,7 +40,7 @@ jobs:
         with:
           # Set up to your needs
           # cache:
-          python-version: ">=3.12"
+          python-version: ">=3.14"
       - name: Setup SSH agent
         uses: webfactory/ssh-agent@v0.9.1
         if: ${{ inputs.ansible-support }}
@@ -54,7 +54,7 @@ jobs:
         with:
           # Enable of go.sum is present
           # cache: true
-          go-version: ">=1.23.0"
+          go-version: ">=1.25.0"
       - name: Setup Terragrunt
         uses: autero1/action-terragrunt@v3
         with:
