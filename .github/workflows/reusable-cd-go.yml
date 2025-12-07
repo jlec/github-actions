@@ -9,8 +9,6 @@ on:
         required: true
       pat:
         required: true
-      tfe_release_token:
-        required: true
       github-token:
         required: true
 
@@ -52,11 +50,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.pat }}
           GPG_FINGERPRINT: ${{ steps.import_gpg.outputs.fingerprint }}
-      - name: Release on TFC
-        run: if [[ -e tools/release.py ]]; then cd tools && ./release.py; fi
-        env:
-          GITHUB_TOKEN: ${{ secrets.pat }}
-          TFE_TOKEN: ${{ secrets.tfe_release_token }}
       - name: Cleanup action status
         uses: ouzi-dev/commit-status-updater@v2
         with:
