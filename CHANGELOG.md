@@ -1,3 +1,9 @@
+## v0.0.83 (2025-12-08)
+
+### Feat
+
+- support tf provider build
+
 ## v0.0.82 (2025-12-07)
 
 ### Refactor
