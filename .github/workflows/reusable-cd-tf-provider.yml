@@ -1,5 +1,5 @@
 ---
-name: GO Releaser
+name: TF Provider Releaser
 
 # yamllint disable-line rule:truthy
 on:
@@ -33,6 +33,10 @@ jobs:
         with:
           cache: true
           go-version-file: "go.mod"
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+      - name: Setup OpenTOFU
+        uses: opentofu/setup-opentofu@v1
       - name: Configure git credentials for private repositories
         run: "git config --global url.'https://jlec:${{ secrets.pat }}@github.com/'.insteadOf https://github.com/"
       - name: Configure git credentials for private repositories (alternative)
