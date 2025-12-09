@@ -28,11 +28,23 @@ jobs:
         with:
           fetch-depth: 0
           ref: ${{ github.ref_name }}
+
+      - name: Cache Go modules
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/go-build
+            ~/go/pkg/mod
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
+
       - name: Setup GO
         uses: actions/setup-go@v6
         with:
           cache: true
           go-version-file: "go.mod"
+
       - name: Configure git credentials for private repositories
         run: "git config --global url.'https://jlec:${{ secrets.pat }}@github.com/'.insteadOf https://github.com/"
       - name: Configure git credentials for private repositories (alternative)
@@ -41,6 +53,7 @@ jobs:
         run: "git config --global url.'https://'.insteadOf git://"
       - name: Configure git user name
         run: "git config --global user.name jlec"
+
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v6
         id: import_gpg
