@@ -7,16 +7,14 @@ on:
   workflow_dispatch:
 
   push:
-    branches:
-      - main
+    tags:
+      - "*"
 
 permissions: read-all
 
 jobs:
   release-and-clean:
     name: Release the code & clean up
-    if: >-
-      startsWith(github.event.head_commit.message, 'bump:')
     runs-on: ubuntu-latest
     permissions:
       contents: write
