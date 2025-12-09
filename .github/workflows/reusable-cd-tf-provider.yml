@@ -37,6 +37,8 @@ jobs:
         uses: hashicorp/setup-terraform@v3
       - name: Setup OpenTOFU
         uses: opentofu/setup-opentofu@v1
+      - name: Setup tfplugindocs
+        uses: terraform-docs/gh-actions@v1.4.1
       - name: Configure git credentials for private repositories
         run: "git config --global url.'https://jlec:${{ secrets.pat }}@github.com/'.insteadOf https://github.com/"
       - name: Configure git credentials for private repositories (alternative)
