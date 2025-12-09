@@ -33,12 +33,14 @@ jobs:
         with:
           cache: true
           go-version-file: "go.mod"
+
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
       - name: Setup OpenTOFU
         uses: opentofu/setup-opentofu@v1
       - name: Setup tfplugindocs
-        uses: terraform-docs/gh-actions@v1.4.1
+        run: go install github.com/hashicorp/terraform-plugin-docs/cmd/tfplugindocs@latest
+
       - name: Configure git credentials for private repositories
         run: "git config --global url.'https://jlec:${{ secrets.pat }}@github.com/'.insteadOf https://github.com/"
       - name: Configure git credentials for private repositories (alternative)
@@ -47,6 +49,7 @@ jobs:
         run: "git config --global url.'https://'.insteadOf git://"
       - name: Configure git user name
         run: "git config --global user.name jlec"
+
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v6
         id: import_gpg
