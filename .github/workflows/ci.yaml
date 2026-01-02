@@ -77,7 +77,7 @@ jobs:
       contents: write
       pull-requests: write
     secrets:
-      pat: ${{ secrets.PAT_GITHUB_TOKEN }}
+      pat: ${{ secrets.GHA_PAT }}
       github-token: ${{ secrets.GITHUB_TOKEN }}
     with:
       licensed-files: |-
