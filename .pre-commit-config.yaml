@@ -20,7 +20,7 @@ exclude: >
   )
 repos:
   - repo: https://github.com/commitizen-tools/commitizen
-    rev: "v4.10.1"
+    rev: "v4.11.0"
     hooks:
       - id: commitizen
         stages:
@@ -103,7 +103,7 @@ repos:
           - .trivy.yml
           - . # last arg indicates the path/file to scan
   - repo: https://github.com/tombi-toml/tombi-pre-commit
-    rev: "v0.7.8"
+    rev: "v0.7.14"
     hooks:
       - id: tombi-format
       - id: tombi-lint
@@ -120,7 +120,7 @@ repos:
     hooks:
       - id: hadolint
   - repo: https://github.com/gitguardian/ggshield
-    rev: "v1.45.0"
+    rev: "v1.46.0"
     hooks:
       - id: ggshield
         stages: ["pre-push"]
