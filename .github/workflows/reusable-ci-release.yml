@@ -43,18 +43,14 @@ jobs:
           assignees: jlec
           labels: license,year
           path: ${{ inputs.licensed-files }}
+        id: license
       - name: Merge Year Bump PR
+        if: steps.license.outputs.pullRequestNumber != ''
         env:
-          GITHUB_TOKEN: ${{ secrets.pat }}
-        run: |-
-          sleep 5
-          n=$(gh pr list --label license,year --json number -q .[].number)
-          echo "PR number: ${n}"
-          if [[ -n ${n} ]]; then
-          gh pr merge ${n} --rebase --delete-branch
-          else
-          git checkout main
-          fi
+          GITHUB_TOKEN: ${{ secrets.github-token }}
+        run: >-
+          gh pr merge --rebase
+          --delete-branch ${{ steps.license.outputs.pullRequestNumber }}
       - name: Create bump and changelog
         id: cz
         uses: commitizen-tools/commitizen-action@0.26.0
