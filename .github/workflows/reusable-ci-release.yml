@@ -51,6 +51,8 @@ jobs:
         run: >-
           gh pr merge --rebase
           --delete-branch ${{ steps.license.outputs.pullRequestNumber }}
+      - name: Reset branch to main
+        run: git checkout main && git reset --hard origin/main
       - name: Create bump and changelog
         id: cz
         uses: commitizen-tools/commitizen-action@0.26.0
