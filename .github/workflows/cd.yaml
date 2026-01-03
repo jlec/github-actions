@@ -17,7 +17,7 @@ permissions: read-all
 
 jobs:
   release-and-clean:
-    if: ${{ ! startsWith(github.ref, 'refs/tags/') }}
+    if: ${{ startsWith(github.ref, 'refs/tags/') }}
     name: Release the code & clean up
     runs-on: ubuntu-latest
     permissions:
