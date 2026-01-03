@@ -6,7 +6,7 @@ on:
   workflow_call:
     secrets:
       pat:
-        required: true
+        required: false
       github-token:
         required: true
 
