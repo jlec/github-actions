@@ -6,14 +6,18 @@ on:
   # yamllint disable-line rule:empty-values
   workflow_dispatch:
 
+  # yamllint disable-line rule:empty-values
+  pull_request:
+
   push:
-    tags:
-      - "*"
+    branches:
+      - main
 
 permissions: read-all
 
 jobs:
   release-and-clean:
+    if: ${{ ! startsWith(github.ref, 'refs/tags/') }}
     name: Release the code & clean up
     runs-on: ubuntu-latest
     permissions:
