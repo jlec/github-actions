@@ -18,6 +18,14 @@ on:
 permissions: read-all
 
 jobs:
+  debug-event:
+    name: "Print GitHub Event Name"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print event name
+        run: |
+          echo "Event name: ${{ github.event_name }}"
+
   ##############################################################################
   #
   # Run on everything but Releases and WIP
