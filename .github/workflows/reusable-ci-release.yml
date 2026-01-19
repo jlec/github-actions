@@ -55,7 +55,7 @@ jobs:
         run: git checkout main && git reset --hard origin/main
       - name: Create bump and changelog
         id: cz
-        uses: commitizen-tools/commitizen-action@0.26.0
+        uses: commitizen-tools/commitizen-action@0.27.0
         with:
           github_token: ${{ secrets.github-token }}
           increment: PATCH
