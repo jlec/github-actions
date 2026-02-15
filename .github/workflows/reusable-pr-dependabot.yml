@@ -18,7 +18,7 @@ jobs:
       contents: write
     # trunk-ignore(actionlint/if-cond)
     if: >-
-      ${{ github.actor == 'dependabot[bot]' }} &&
+      ${{ github.event.pull_request.user.login == 'dependabot[bot]' }} &&
       ${{ github.event_name == 'pull_request' }}
     steps:
       - name: Checkout repository
