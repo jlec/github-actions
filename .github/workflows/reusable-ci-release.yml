@@ -55,7 +55,7 @@ jobs:
         run: git checkout main && git reset --hard origin/main
       - name: Create bump and changelog
         id: cz
-        uses: commitizen-tools/commitizen-action@0.27.0
+        uses: commitizen-tools/commitizen-action@338bbd841b75aaee6bf5340e1fa12f6ab58ff9ff # 0.27.1
         with:
           github_token: ${{ secrets.github-token }}
           increment: PATCH
@@ -68,7 +68,7 @@ jobs:
           files: "galaxy.yml, meta/runtime.yml"
 
       - name: Build Ansible Collection
-        uses: artis3n/ansible_galaxy_collection@v2
+        uses: artis3n/ansible_galaxy_collection@ffbca2460a5a1c600b941bbf1536bd61de1c2227 # v3.0.0
         if: steps.check_files.outputs.files_exists == 'true'
         with:
           api_key: "FAKE_KEY"
