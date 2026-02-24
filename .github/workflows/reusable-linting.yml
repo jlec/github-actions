@@ -54,7 +54,7 @@ jobs:
         with:
           # Enable of go.sum is present
           # cache: true
-          go-version: ">=1.25.0"
+          go-version: ">=1.26.0"
       - name: Setup Terragrunt
         uses: autero1/action-terragrunt@v3
         with:
