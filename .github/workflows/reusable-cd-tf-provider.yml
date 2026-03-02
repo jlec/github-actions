@@ -46,7 +46,7 @@ jobs:
           go-version-file: "go.mod"
 
       - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
+        uses: hashicorp/setup-terraform@v4
       - name: Setup OpenTOFU
         uses: opentofu/setup-opentofu@v1
       - name: Setup tfplugindocs
