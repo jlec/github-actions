@@ -55,7 +55,7 @@ jobs:
         run: "git config --global user.name jlec"
 
       - name: Import GPG key
-        uses: crazy-max/ghaction-import-gpg@v6
+        uses: crazy-max/ghaction-import-gpg@v7
         id: import_gpg
         with:
           gpg_private_key: ${{ secrets.gpg_release_key }}
