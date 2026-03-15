@@ -18,22 +18,6 @@ on:
 permissions: read-all
 
 jobs:
-  token:
-    name: Generate token
-    runs-on: ubuntu-latest
-    outputs:
-      token: ${{ steps.app-token.outputs.token }}
-    steps:
-      - name: Generate token
-        id: app-token
-        uses: actions/create-github-app-token@v3
-        with:
-          app-id: ${{ vars.GHA_APP_ID }}
-          private-key: ${{ secrets.GHA_APP_PRIVATE_KEY }}
-
-      - name: Output token
-        run: echo "token=${{ steps.app-token.outputs.token }}" >> $GITHUB_OUTPUT
-
   ##############################################################################
   #
   # Run on everything but Releases and WIP
@@ -87,13 +71,10 @@ jobs:
       !startsWith(github.event.head_commit.message, 'WIP')
     needs:
       - ci-generic
-      - token
     uses: jlec/github-actions/.github/workflows/reusable-ci-release.yml@main
     permissions:
       contents: write
       pull-requests: write
-    secrets:
-      github-token: ${{ needs.token.outputs.token }}
     with:
       licensed-files: |-
         LICENSE

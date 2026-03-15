@@ -3,23 +3,30 @@ name: GO Build & test
 
 # yamllint disable-line rule:truthy
 on:
-  workflow_call:
-    secrets:
-      pat:
-        required: true
+  workflow_call: {}
 
 jobs:
   go-build-test:
     name: go-build-test
     runs-on: ubuntu-latest
     steps:
+      - name: Generate token
+        id: app-token
+        uses: actions/create-github-app-token@v3
+        with:
+          app-id: ${{ vars.GHA_APP_ID }}
+          private-key: ${{ secrets.GHA_APP_PRIVATE_KEY }}
       - name: Checkout repository
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
-      - run: "git config --global url.'https://jlec:${{ secrets.pat }}@github.com/'.insteadOf https://github.com/"
+      - run: >-
+          git config --global
+          url.'https://jlec:${{ steps.app-token.outputs.token }}@github.com/'.insteadOf https://github.com/
       # yamllint disable-line rule:line-length
-      - run: "git config --global url.'https://jlec:${{ secrets.pat }}@github.com/'.insteadOf 'https://github.com/'"
+      - run: >-
+          git config --global
+          url.'https://jlec:${{ steps.app-token.outputs.token }}@github.com/'.insteadOf 'https://github.com/'
       - run: "git config --global url.'https://'.insteadOf git://"
       - run: "git config --global user.name jlec"
       - name: Set up Go

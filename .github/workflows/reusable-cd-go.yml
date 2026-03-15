@@ -7,10 +7,6 @@ on:
     secrets:
       gpg_release_key:
         required: true
-      pat:
-        required: true
-      github-token:
-        required: true
 
 jobs:
   goreleaser:
@@ -23,11 +19,19 @@ jobs:
     env:
       GOPRIVATE: github.com/go-jlec
     steps:
+      - name: Generate token
+        id: app-token
+        uses: actions/create-github-app-token@v3
+        with:
+          app-id: ${{ vars.GHA_APP_ID }}
+          private-key: ${{ secrets.GHA_APP_PRIVATE_KEY }}
+
       - name: Checkout repository
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
           ref: ${{ github.ref_name }}
+          token: ${{ steps.app-token.outputs.token }}
 
       - name: Cache Go modules
         uses: actions/cache@v5
@@ -46,9 +50,13 @@ jobs:
           go-version-file: "go.mod"
 
       - name: Configure git credentials for private repositories
-        run: "git config --global url.'https://jlec:${{ secrets.pat }}@github.com/'.insteadOf https://github.com/"
+        run: >-
+          git config --global
+          url.'https://jlec:${{ steps.app-token.outputs.token }}@github.com/'.insteadOf https://github.com/
       - name: Configure git credentials for private repositories (alternative)
-        run: "git config --global url.'https://jlec:${{ secrets.pat }}@github.com/'.insteadOf 'https://github.com/'"
+        run: >-
+          git config --global
+          url.'https://jlec:${{ steps.app-token.outputs.token }}@github.com/'.insteadOf 'https://github.com/'
       - name: Configure git to use https instead of git protocol
         run: "git config --global url.'https://'.insteadOf git://"
       - name: Configure git user name
@@ -65,12 +73,12 @@ jobs:
           version: "~> v2"
           args: release --clean
         env:
-          GITHUB_TOKEN: ${{ secrets.pat }}
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
           GPG_FINGERPRINT: ${{ steps.import_gpg.outputs.fingerprint }}
       - name: Cleanup action status
         uses: ouzi-dev/commit-status-updater@v2
         with:
           status: "success"
-          token: ${{ secrets.github-token }}
+          token: ${{ steps.app-token.outputs.token }}
           name: "GithubActions - ${GITHUB_WORKFLOW}"
           ignoreForks: true
