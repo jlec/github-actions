@@ -75,6 +75,7 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+    secrets: inherit
     with:
       licensed-files: |-
         LICENSE
