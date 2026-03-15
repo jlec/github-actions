@@ -31,10 +31,10 @@ tasks:
   setup-pre-commit:
     desc: Setup Pre-Commit environment
     cmds:
-      - cmd: $PY_RUNNER pre-commit install
-      - cmd: $PY_RUNNER pre-commit install --install-hooks
-      - cmd: $PY_RUNNER pre-commit install --hook-type commit-msg
-      - cmd: $PY_RUNNER pre-commit install --hook-type pre-push
+      - cmd: prek install
+      - cmd: prek install --install-hooks
+      - cmd: prek install --hook-type commit-msg
+      - cmd: prek install --hook-type pre-push
       - task: ansible-init
 
   ansible-init:
@@ -117,9 +117,9 @@ tasks:
   pre-commit:
     desc: Run pre-commit
     cmds:
-      - cmd: $PY_RUNNER pre-commit run --hook-stage commit --all-files
-      - cmd: $PY_RUNNER pre-commit run --hook-stage push --all-files
-      - cmd: $PY_RUNNER pre-commit run --hook-stage manual --all-files
+      - cmd: prek run --stage pre-commit --all-files
+      - cmd: prek run --stage pre-push --all-files
+      - cmd: prek run --stage manual --all-files
 
   test:
     desc: Run pytest

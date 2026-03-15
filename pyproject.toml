@@ -21,16 +21,6 @@ dev = [
   "pytest-xdist>=3.6.1",
 ]
 
-[tool.commitizen]
-name = "cz_conventional_commits"
-tag_format = "v$version"
-update_changelog_on_bump = true
-version = "0.0.96"
-version_files = [
-  "VERSION",
-  "pyproject.toml:version",
-]
-
 [tool.ruff]
 line-length = 128
 target-version = "py314"

@@ -53,6 +53,10 @@ jobs:
           --delete-branch ${{ steps.license.outputs.pullRequestNumber }}
       - name: Reset branch to main
         run: git checkout main && git reset --hard origin/main
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+      - name: Lock uv
+        run: uv lock
       - name: Create bump and changelog
         id: cz
         uses: commitizen-tools/commitizen-action@338bbd841b75aaee6bf5340e1fa12f6ab58ff9ff # 0.27.1
