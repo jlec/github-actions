@@ -7,8 +7,6 @@ on:
     secrets:
       pat:
         required: false
-      github-token:
-        required: true
 
 jobs:
   ci-generic:
@@ -21,8 +19,14 @@ jobs:
     if: >-
       ${{ github.actor != 'dependabot[bot]' }}
     steps:
+      - name: Generate token
+        id: app-token
+        uses: actions/create-github-app-token@v3
+        with:
+          app-id: ${{ vars.GHA_APP_ID }}
+          private-key: ${{ secrets.GHA_APP_PRIVATE_KEY }}
       - name: Checkout repository
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
-          token: ${{ secrets.github-token }}
+          token: ${{ steps.app-token.outputs.token }}

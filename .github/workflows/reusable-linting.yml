@@ -8,8 +8,6 @@ on:
     secrets:
       ansible-deploy-keys:
         required: false
-      github-token:
-        required: true
     inputs:
       ansible-support:
         default: false
@@ -26,13 +24,20 @@ jobs:
     env:
       PY_RUNNER: ""
     steps:
+      - name: Generate token
+        id: app-token
+        uses: actions/create-github-app-token@v3
+        with:
+          app-id: ${{ vars.GHA_APP_ID }}
+          private-key: ${{ secrets.GHA_APP_PRIVATE_KEY }}
       - name: Checkout repository
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
-      - run: "git config --global url.'https://jlec:${{ secrets.github-token }}@github.com/'.insteadOf https://github.com/"
       # yamllint disable-line rule:line-length
-      - run: "git config --global url.'https://jlec:${{ secrets.github-token }}@github.com/'.insteadOf 'https://github.com/'"
+      - run: "git config --global url.'https://jlec:${{ steps.app-token.outputs.token }}@github.com/'.insteadOf https://github.com/"
+      # yamllint disable-line rule:line-length
+      - run: "git config --global url.'https://jlec:${{ steps.app-token.outputs.token }}@github.com/'.insteadOf 'https://github.com/'"
       - run: "git config --global url.'https://'.insteadOf git://"
       - run: "git config --global user.name jlec"
       - name: Setup Python
@@ -78,7 +83,7 @@ jobs:
       - name: Run pre-commit against all files
         uses: pre-commit/action@v3.0.1
         env:
-          GITHUB_TOKEN: ${{ secrets.github-token }}
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
           # yamllint disable-line rule:line-length
           SKIP: detect-aws-credentials,mypy,protect-first-parent,tofu_docs,tofu_providers_lock,tofu_tflint,tofu_tfsec,tofu_checkov,terrascan,helm-docs-built,go-vet,go-unit-tests,go-static-check,tfupdate,tofu_validate,terragrunt_validate
       # RUN GITLEAKS
