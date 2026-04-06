@@ -1,3 +1,9 @@
+## v0.0.98 (2026-04-06)
+
+### Fix
+
+- migrate remaining workflows from PAT to GitHub App tokens
+
 ## v0.0.97 (2026-03-15)
 
 ### Fix
