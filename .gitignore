@@ -39,8 +39,6 @@ logs/
 
 .jupyter_cache/
 
-.pre-commit-trivy-cache
-
 /deployment/.terragrunt
 !/deployment/*/terraform.tfvars
 !examples/terraform.tfvars

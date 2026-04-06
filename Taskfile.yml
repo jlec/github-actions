@@ -22,6 +22,7 @@ tasks:
     cmds:
       - task: setup-python
       - task: setup-pre-commit
+      - cmd: rm -vf .git/hooks/*legacy
 
   setup-python:
     desc: Setup Python environment including dev dependencies
