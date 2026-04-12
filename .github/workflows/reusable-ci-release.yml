@@ -30,7 +30,7 @@ jobs:
         id: app-token
         uses: actions/create-github-app-token@v3
         with:
-          app-id: ${{ vars.GHA_APP_ID }}
+          client-id: ${{ vars.GHA_CLIENT_ID }}
           private-key: ${{ secrets.GHA_APP_PRIVATE_KEY }}
 
       - name: Checkout repository
@@ -56,7 +56,7 @@ jobs:
       - name: Reset branch to main
         run: git checkout main && git reset --hard origin/main
       - name: Install uv
-        uses: astral-sh/setup-uv@v7
+        uses: astral-sh/setup-uv@v8
       - name: Lock uv
         run: uv lock
       - name: Create bump and changelog
@@ -81,7 +81,7 @@ jobs:
           publish: false
 
       - name: Release on Github w/ files
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           files: ${{ inputs.artifacts }}
           body_path: "body.md"
