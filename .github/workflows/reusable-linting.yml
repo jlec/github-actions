@@ -81,7 +81,7 @@ jobs:
       - name: Install OpenTOFU
         uses: opentofu/setup-opentofu@v2
       - name: Run pre-commit against all files
-        uses: pre-commit/action@v3.0.1
+        uses: j178/prek-action@v2
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
           # yamllint disable-line rule:line-length
