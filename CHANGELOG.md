@@ -1,3 +1,15 @@
+## v0.0.99 (2026-04-12)
+
+### Feat
+
+- update actions
+
+### Fix
+
+- uv action release
+- **ci**: prevent skipped dependabot job from blocking ci-generic and ci-release
+- gha warnings
+
 ## v0.0.98 (2026-04-06)
 
 ### Fix
