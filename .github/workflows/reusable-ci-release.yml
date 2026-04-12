@@ -23,8 +23,8 @@ jobs:
       pull-requests: write
       contents: write
     if: >-
-      ${{ github.actor != 'dependabot[bot]' }} &&
-      ${{ github.ref_name == 'main' }}
+      github.actor != 'dependabot[bot]' &&
+      github.ref_name == 'main'
     steps:
       - name: Generate token
         id: app-token

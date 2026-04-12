@@ -13,10 +13,9 @@ jobs:
     permissions:
       pull-requests: write
       contents: write
-    # trunk-ignore(actionlint/if-cond)
     if: >-
-      ${{ github.event.pull_request.user.login == 'dependabot[bot]' }} &&
-      ${{ github.event_name == 'pull_request' }}
+      github.event.pull_request.user.login == 'dependabot[bot]' &&
+      github.event_name == 'pull_request'
     steps:
       - name: Generate token
         id: app-token
