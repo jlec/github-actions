@@ -1,3 +1,9 @@
+## v0.0.100 (2026-04-12)
+
+### Feat
+
+- **cd**: migrate commit status action to myrotvorets/set-commit-status-action
+
 ## v0.0.99 (2026-04-12)
 
 ### Feat
