@@ -1,6 +1,6 @@
 {
   "checkout": null,
-  "commit": "a18d5991736962657d99eaa3ac58133c37553c38",
+  "commit": "b0803e241b464f0d8d30540ee5d3ed0fa6240c1c",
   "context": {
     "cookiecutter": {
       "email": "justin@jlec.de",
@@ -33,7 +33,7 @@
       "_copy_without_render": ["charts/README.md.gotmpl"],
       "_go_app_name": "goer",
       "_template": "https://github.com/jlec/cookiecutter-general.git",
-      "_commit": "a18d5991736962657d99eaa3ac58133c37553c38"
+      "_commit": "b0803e241b464f0d8d30540ee5d3ed0fa6240c1c"
     }
   },
   "directory": null,
