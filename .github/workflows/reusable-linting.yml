@@ -80,6 +80,8 @@ jobs:
         run: "task ansible-init"
       - name: Install OpenTOFU
         uses: opentofu/setup-opentofu@v2
+      - name: Setup Biome
+        uses: biomejs/setup-biome@v2
       - name: Run pre-commit against all files
         uses: j178/prek-action@v2
         env:
