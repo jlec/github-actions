@@ -1,3 +1,9 @@
+## v0.0.105 (2026-05-30)
+
+### Fix
+
+- generate owner-scoped app token for cross-repo access
+
 ## v0.0.104 (2026-05-30)
 
 ### Fix
