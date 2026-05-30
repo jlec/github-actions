@@ -47,7 +47,7 @@ jobs:
         with:
           # Set up to your needs
           # cache:
-          python-version: ">=3.14"
+          python-version: "3.13"
       - name: Setup SSH agent
         uses: webfactory/ssh-agent@e83874834305fe9a4a2997156cb26c5de65a8555 # v0.10.0
         if: ${{ inputs.ansible-support && env.HAS_ANSIBLE_KEY == 'true' }}
@@ -61,7 +61,7 @@ jobs:
         with:
           # Enable of go.sum is present
           # cache: true
-          go-version: ">=1.26.0"
+          go-version: "1.23"
       - name: Setup Terragrunt
         uses: autero1/action-terragrunt@v3
         with:
