@@ -1,3 +1,10 @@
+## v0.0.104 (2026-05-30)
+
+### Fix
+
+- skip ssh-agent when ansible-deploy-keys secret is absent
+- skip ssh-agent setup when ansible-deploy-keys secret is absent
+
 ## v0.0.103 (2026-05-28)
 
 ### Fix
