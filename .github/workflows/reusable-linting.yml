@@ -48,7 +48,7 @@ jobs:
           python-version: ">=3.14"
       - name: Setup SSH agent
         uses: webfactory/ssh-agent@e83874834305fe9a4a2997156cb26c5de65a8555 # v0.10.0
-        if: ${{ inputs.ansible-support }}
+        if: ${{ inputs.ansible-support && secrets.ansible-deploy-keys != '' }}
         with:
           ssh-private-key: >-
             ${{ secrets.ansible-deploy-keys }}
