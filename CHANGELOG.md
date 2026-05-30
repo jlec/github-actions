@@ -1,3 +1,10 @@
+## v0.0.106 (2026-05-30)
+
+### Fix
+
+- upgrade Go version to 1.25 for staticcheck compatibility
+- use valid Python 3.13 and Go 1.23 versions, update cruft template
+
 ## v0.0.105 (2026-05-30)
 
 ### Fix
