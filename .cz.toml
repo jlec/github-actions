@@ -3,7 +3,10 @@ name = "cz_conventional_commits"
 tag_format = "v$version"
 update_changelog_on_bump = true
 version_files = [
-  "VERSION",
+  
   "pyproject.toml:version",
+  
+  
+  "VERSION",
 ]
 version_provider = "uv"

@@ -86,7 +86,7 @@ tasks:
   cruft-push:
     desc: Push the cookies
     cmds:
-      - cmd: 'git ci -a -m "chore(cruft): update to latest cruft state"'
+      - cmd: "git ci -a -m \"chore(cruft): update to latest cruft state\""
 
   cruft-reset:
     desc: Reset cruft
@@ -102,6 +102,8 @@ tasks:
     desc: Run prettier
     cmds:
       - cmd: prettier -w .
+      - cmd: yamlfmt .
+      - cmd: biome format --fix .
   check:
     desc: Run pre-commit
     deps:
