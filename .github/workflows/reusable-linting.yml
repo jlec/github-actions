@@ -92,7 +92,7 @@ jobs:
           SKIP: detect-aws-credentials,mypy,protect-first-parent,tofu_docs,tofu_providers_lock,tofu_tflint,tofu_tfsec,tofu_checkov,terrascan,helm-docs-built,go-vet,go-unit-tests,go-static-check,tfupdate,tofu_validate,terragrunt_validate
       # RUN GITLEAKS
       - name: Run GitLeaks
-        uses: gitleaks/gitleaks-action@v2
+        uses: gitleaks/gitleaks-action@v3
         if: ${{ github.repository_owner == 'jlec' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
