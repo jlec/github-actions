@@ -1,6 +1,6 @@
 {
   "checkout": null,
-  "commit": "5b971941ad57df8866fe04ae1ee35620a730d1ad",
+  "commit": "f89a73c77c9af40d1b836d72739fc8362439cfbb",
   "context": {
     "cookiecutter": {
       "email": "justin@jlec.de",
@@ -14,6 +14,7 @@
       "project_support_ansible_collection": false,
       "project_support_ansible_playbook": false,
       "project_support_ansible_role": false,
+      "project_support_docker": false,
       "project_support_golang": false,
       "project_support_rust": false,
       "project_support_rust_bin": false,
@@ -34,12 +35,10 @@
       "python_version": "3.14",
       "scalr_env": "jlec",
       "scalr_workspace": "github_actions",
-      "_copy_without_render": [
-        "charts/README.md.gotmpl"
-      ],
+      "_copy_without_render": ["charts/README.md.gotmpl"],
       "_go_app_name": "goer",
       "_template": "https://github.com/jlec/cookiecutter-general.git",
-      "_commit": "5b971941ad57df8866fe04ae1ee35620a730d1ad"
+      "_commit": "f89a73c77c9af40d1b836d72739fc8362439cfbb"
     }
   },
   "directory": null,
