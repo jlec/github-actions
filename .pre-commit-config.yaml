@@ -25,6 +25,13 @@ repos:
       - id: commitizen
         stages:
           - commit-msg
+  - repo: https://github.com/biomejs/pre-commit
+    rev: v0.6.1
+    hooks:
+      - id: biome-check
+      - id: biome-ci
+      - id: biome-format
+      - id: biome-lint
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: "v6.0.0"
     hooks:
@@ -97,7 +104,7 @@ repos:
       - id: tombi-format
       - id: tombi-lint
   - repo: https://github.com/betterleaks/betterleaks
-    rev: "v1.3.1"
+    rev: "v1.4.0"
     hooks:
       - id: betterleaks
   - repo: https://github.com/python-jsonschema/check-jsonschema
