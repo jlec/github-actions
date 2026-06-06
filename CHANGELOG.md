@@ -1,3 +1,9 @@
+## v0.0.107 (2026-06-06)
+
+### Fix
+
+- skip app token generation for dependabot, fallback to github.token
+
 ## v0.0.106 (2026-05-30)
 
 ### Fix
