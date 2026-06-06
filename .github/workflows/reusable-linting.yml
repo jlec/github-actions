@@ -27,6 +27,7 @@ jobs:
     steps:
       - name: Generate token
         id: app-token
+        if: github.actor != 'dependabot[bot]'
         uses: actions/create-github-app-token@v3
         with:
           client-id: ${{ vars.GHA_CLIENT_ID }}
@@ -36,10 +37,11 @@ jobs:
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
+          token: ${{ steps.app-token.outputs.token || github.token }}
       # yamllint disable-line rule:line-length
-      - run: "git config --global url.'https://jlec:${{ steps.app-token.outputs.token }}@github.com/'.insteadOf https://github.com/"
+      - run: "git config --global url.'https://jlec:${{ steps.app-token.outputs.token || github.token }}@github.com/'.insteadOf https://github.com/"
       # yamllint disable-line rule:line-length
-      - run: "git config --global url.'https://jlec:${{ steps.app-token.outputs.token }}@github.com/'.insteadOf 'https://github.com/'"
+      - run: "git config --global url.'https://jlec:${{ steps.app-token.outputs.token || github.token }}@github.com/'.insteadOf 'https://github.com/'"
       - run: "git config --global url.'https://'.insteadOf git://"
       - run: "git config --global user.name jlec"
       - name: Setup Python
@@ -87,7 +89,7 @@ jobs:
       - name: Run pre-commit against all files
         uses: j178/prek-action@v2
         env:
-          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token || github.token }}
           # yamllint disable-line rule:line-length
           SKIP: detect-aws-credentials,mypy,protect-first-parent,tofu_docs,tofu_providers_lock,tofu_tflint,tofu_tfsec,tofu_checkov,terrascan,helm-docs-built,go-vet,go-unit-tests,go-static-check,tfupdate,tofu_validate,terragrunt_validate
       # RUN GITLEAKS
