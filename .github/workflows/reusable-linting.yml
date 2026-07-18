@@ -59,7 +59,7 @@ jobs:
       - name: Setup GIT user
         uses: fregante/setup-git-user@v2
       - name: Install GO
-        uses: actions/setup-go@v6
+        uses: actions/setup-go@v7
         with:
           # Enable of go.sum is present
           # cache: true
