@@ -25,10 +25,13 @@
       "**/*.ts",
       "**/*.tsx",
       "!**/*.min.js",
+      "!**/.mypy_cache",
+      "!**/.venv",
       "!**/build",
       "!**/coverage",
       "!**/dist",
-      "!**/node_modules"
+      "!**/node_modules",
+      "!**/venv"
     ]
   },
   "formatter": {
