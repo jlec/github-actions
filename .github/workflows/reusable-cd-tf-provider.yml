@@ -26,14 +26,14 @@ jobs:
           client-id: ${{ vars.GHA_CLIENT_ID }}
           private-key: ${{ secrets.GHA_APP_PRIVATE_KEY }}
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
           ref: ${{ github.ref_name }}
           token: ${{ steps.app-token.outputs.token }}
 
       - name: Cache Go modules
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: |
             ~/.cache/go-build
@@ -43,7 +43,7 @@ jobs:
             ${{ runner.os }}-go-
 
       - name: Setup GO
-        uses: actions/setup-go@v6
+        uses: actions/setup-go@v7
         with:
           cache: true
           go-version-file: "go.mod"
