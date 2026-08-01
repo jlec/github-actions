@@ -87,7 +87,7 @@ jobs:
       - name: Setup Biome
         uses: biomejs/setup-biome@v2
       - name: Run pre-commit against all files
-        uses: j178/prek-action@v2
+        uses: j178/prek-action@v2.0.6
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token || github.token }}
           # yamllint disable-line rule:line-length
