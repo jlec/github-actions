@@ -28,18 +28,18 @@ jobs:
     steps:
       - name: Generate token
         id: app-token
-        uses: actions/create-github-app-token@v3
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
         with:
           client-id: ${{ vars.GHA_CLIENT_ID }}
           private-key: ${{ secrets.GHA_APP_PRIVATE_KEY }}
 
       - name: Checkout repository
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
           token: ${{ steps.app-token.outputs.token }}
       - name: Update License year
-        uses: FantasticFiasco/action-update-license-year@v3
+        uses: FantasticFiasco/action-update-license-year@f180e962fa988db222d8f03ef4636750312d1b3d # v3.0.4
         with:
           token: ${{ steps.app-token.outputs.token }}
           assignees: jlec
@@ -56,7 +56,7 @@ jobs:
       - name: Reset branch to main
         run: git checkout main && git reset --hard origin/main
       - name: Install uv
-        uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
+        uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
       - name: Lock uv
         run: uv lock
       - name: Create bump and changelog
@@ -69,7 +69,7 @@ jobs:
 
       - name: "Check file existence"
         id: check_files
-        uses: andstor/file-existence-action@v3
+        uses: andstor/file-existence-action@558493d6c74bf472d87c84eab196434afc2fa029 # v3.1.0
         with:
           files: "galaxy.yml, meta/runtime.yml"
 
@@ -81,7 +81,7 @@ jobs:
           publish: false
 
       - name: Release on Github w/ files
-        uses: softprops/action-gh-release@v3
+        uses: softprops/action-gh-release@3d0d9888cb7fd7b750713d6e236d1fcb99157228 # v3.0.2
         with:
           files: ${{ inputs.artifacts }}
           body_path: "body.md"
