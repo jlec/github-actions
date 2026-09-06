@@ -92,9 +92,9 @@ jobs:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token || github.token }}
           # yamllint disable-line rule:line-length
           SKIP: detect-aws-credentials,mypy,protect-first-parent,tofu_docs,tofu_providers_lock,tofu_tflint,tofu_tfsec,tofu_checkov,terrascan,helm-docs-built,go-vet,go-unit-tests,go-static-check,tfupdate,tofu_validate,terragrunt_validate
-      # RUN GITLEAKS
-      - name: Run GitLeaks
-        uses: gitleaks/gitleaks-action@e0c47f4f8be36e29cdc102c57e68cb5cbf0e8d1e # v3.0.0
+      # RUN BETTERLEAKS
+      - name: Run Betterleaks
+        uses: dortort/betterleaks-action@cd0b905aa4befb8f42f8b1ab98150180c9e77515 # v0.1.0
         if: ${{ github.repository_owner == 'jlec' }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
