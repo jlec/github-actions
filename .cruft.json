@@ -1,10 +1,11 @@
 {
   "checkout": null,
-  "commit": "c9ebaafaad253ce4cef8926426ad7705ac9d55c1",
+  "commit": "9577fc22131f87c9ecb73965fb691e2d42b1e619",
   "context": {
     "cookiecutter": {
       "email": "justin@jlec.de",
       "full_name": "Justin Lecher",
+      "profile": "personal",
       "github_owner": "jlec",
       "github_repo": "github-actions",
       "project_name": "Github Actions",
@@ -31,14 +32,23 @@
       "project_support_terraform_module": false,
       "project_support_terraform_provider": false,
       "project_support_terraform_terragrunt": false,
-      "go_version": "1.25",
-      "python_version": "3.14",
+      "go_version": "1.27",
+      "python_version": "3.15",
       "scalr_env": "jlec",
       "scalr_workspace": "github_actions",
-      "_copy_without_render": ["charts/README.md.gotmpl"],
+      "_extensions": ["local_extensions.ProfileExtension"],
+      "_copy_without_render": [
+        "charts/README.md.gotmpl",
+        ".github/workflows/ci-rust.yaml",
+        ".github/workflows/cd-rust.yaml",
+        ".github/workflows/cd-release.yaml",
+        ".github/workflows/claude.yml",
+        ".github/workflows/claude-code-review.yml",
+        ".github/workflows/sq-auto-enrol.yaml"
+      ],
       "_go_app_name": "goer",
       "_template": "https://github.com/jlec/cookiecutter-general.git",
-      "_commit": "c9ebaafaad253ce4cef8926426ad7705ac9d55c1"
+      "_commit": "9577fc22131f87c9ecb73965fb691e2d42b1e619"
     }
   },
   "directory": null,
