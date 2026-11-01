@@ -6,6 +6,9 @@ on:
   # yamllint disable-line rule:empty-values
   workflow_call:
     secrets:
+      GHA_APP_PRIVATE_KEY:
+        description: Private key of the GitHub App that mints tokens; pass it explicitly across owners
+        required: false
       ansible-deploy-keys:
         required: false
     inputs:

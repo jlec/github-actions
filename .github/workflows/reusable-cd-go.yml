@@ -5,6 +5,9 @@ name: GO Releaser
 on:
   workflow_call:
     secrets:
+      GHA_APP_PRIVATE_KEY:
+        description: Private key of the GitHub App that mints tokens; pass it explicitly across owners
+        required: false
       gpg_release_key:
         required: true
 
