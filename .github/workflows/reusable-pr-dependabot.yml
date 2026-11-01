@@ -3,7 +3,11 @@ name: Dependabot PR
 
 # yamllint disable-line rule:truthy
 on:
-  workflow_call: {}
+  workflow_call:
+    secrets:
+      GHA_APP_PRIVATE_KEY:
+        description: Private key of the GitHub App that mints tokens; pass it explicitly across owners
+        required: false
 
 jobs:
   dependabot:
